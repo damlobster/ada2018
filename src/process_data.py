@@ -13,7 +13,7 @@ from pyspark.sql.types import *
 def load_gkg(file):
     gkg_df = spark.read.csv(params.HADOOP_PATH + file, sep="\t", header=False, schema=config.GKG_SCHEMA, mode="FAILFAST")
     gkg_df = gkg_df .withColumn("DATE", F.to_timestamp(gkg_df.DATE, "yyyyMMddHHmmss"))\
-                    .filter(" OR ".join([f'Themes like "%{k}%"' for k in ["ENV_", "ENVIRON", "NATURAL_DISASTER%"]]))
+                    .filter(" OR ".join(['Themes like "%{}%"'.format(k) for k in ["ENV_", "ENVIRON", "NATURAL_DISASTER%"]]))
     return gkg_df
 
 def load_event(file):
@@ -27,7 +27,7 @@ def load_mentions(file):
 
 spark = SparkSession.builder.getOrCreate()
 
-files_df = spark.read.parquet(params.LOCAL_PATH + "gdelt_files_index.parquet")
+#files_df = spark.read.parquet(params.LOCAL_PATH + "gdelt_files_index.parquet")
 
 gkg_df = load_gkg("20150218230000.gkg.csv")
 mentions_df = load_mentions("20150218230000.mentions.CSV")

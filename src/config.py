@@ -4,8 +4,8 @@ import os
 if os.environ.get("RUN_ON_CLUSTER", None)!=1:
     print("Not in cluster")
     os.environ["PYTHONIOENCODING"] = "utf8"
-    import findspark
-    findspark.init()
+    #import findspark
+    #findspark.init()
 
 import pyspark
 from pyspark.sql.types import *
@@ -15,9 +15,9 @@ class params():
     HADOOP_PATH = "/datasets/gdeltv2/"
     LOCAL_PATH = "./data/"
 
-if os.environ.get("RUN_ON_CLUSTER", None)!=1:
+#if os.environ.get("RUN_ON_CLUSTER", None)!=1:
     # override HADOOP path if not in cluster
-    params.HADOOP_PATH = params.LOCAL_PATH
+    #params.HADOOP_PATH = params.LOCAL_PATH
 
 
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\
@@ -34,9 +34,9 @@ GKG_SCHEMA_KARTHI = StructType([
         StructField("V2SourceCollectionIdentifier",LongType(),True),
         StructField("V2SubSourceCommonName",StringType(),True),
         StructField("V2DocumentIdentifier",StringType(),True),
-        StructField("V1Counts",StringType(),True), # Semicolon-delimited blocks, with pound symbol (“#”) delimited fields)
+        StructField("V1Counts",StringType(),True), # Semicolon-delimited blocks, with pound symbol ("#") delimited fields)
         StructField("V1Themes",StringType(),True), # Semi-colon delimited
-        StructField("V1Locations",StringType(),True), # semicolon-delimited blocks, with pound symbol (“#”) delimited fields)
+        StructField("V1Locations",StringType(),True), # semicolon-delimited blocks, with pound symbol ("#") delimited fields)
         StructField("V1Persons",StringType(),True), # Semi-colon delimited
         StructField("V1Organizations",StringType(),True), # Semi-colon delimited
         StructField("V1.5Tone",StringType(),True), # This field contains a comma-delimited list of six core emotional dimensions
@@ -45,7 +45,7 @@ GKG_SCHEMA_KARTHI = StructType([
         StructField("V2EnhancedThemes",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
         StructField("V2EnhancedPersons",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
         StructField("V2EnhancedOrganizations",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedLocations",StringType(),True), #semicolon-delimited blocks, with pound symbol (“#”) delimited fields
+        StructField("V2EnhancedLocations",StringType(),True), #semicolon-delimited blocks, with pound symbol ("#") delimited fields
         StructField("V1EventIds",StringType(),True),# comma-separated text
         StructField("V2EnhancedEventIds",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
         StructField("V2ExtrasXML",StringType(),True), #XML
