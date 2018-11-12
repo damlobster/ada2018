@@ -1,4 +1,4 @@
-from pyspark.sql.types import * 
+from pyspark.sql.types import *
 
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\
 ENV_COAL,ENV_OIL,ENV_NATURALGAS,ENV_WINDPOWER,ENV_GEOTHERMAL,ENV_BIOFUEL,ENV_GREEN,\
@@ -9,40 +9,33 @@ MOVEMENT_ENVIRONMENTAL,NATURAL_DISASTER".split(",")
 OTHER_KEYS = "MANMADE_DISASTER".split(",")
 
 GKG_SCHEMA = StructType([
-        StructField("GKGRECORDID",StringType(),True),
-        StructField("DATE",LongType(),True),
-        StructField("SourceCollectionIdentifier",LongType(),True),
-        StructField("SourceCommonName",StringType(),True),
-        StructField("DocumentIdentifier",StringType(),True),
-        StructField("Counts",StringType(),True),
-        StructField("V2Counts",StringType(),True),
-        StructField("Themes",StringType(),True),
-        StructField("V2Themes",StringType(),True),
-        StructField("Locations",StringType(),True),
-        StructField("V2Locations",StringType(),True),
-        StructField("Persons",StringType(),True),
-        StructField("V2Persons",StringType(),True),
-        StructField("Organizations",StringType(),True),
-        StructField("V2Organizations",StringType(),True),
-        StructField("V2Tone",StringType(),True),
-        StructField("Dates",StringType(),True),
-        StructField("GCAM",StringType(),True),
-        StructField("SharingImage",StringType(),True),
-        StructField("RelatedImages",StringType(),True),
-        StructField("SocialImageEmbeds",StringType(),True),
-        StructField("SocialVideoEmbeds",StringType(),True),
-        StructField("Quotations",StringType(),True),
-        StructField("AllNames",StringType(),True),
-        StructField("Amounts",StringType(),True),
-        StructField("TranslationInfo",StringType(),True),
-        StructField("Extras",StringType(),True)
+        StructField("GKGRECORDID",LongType(),True),
+        StructField("V1DATE",LongType(),True),
+        StructField("V2SourceCollectionIdentifier",LongType(),True),
+        StructField("V2SubSourceCommonName",StringType(),True),
+        StructField("V2DocumentIdentifier",StringType(),True),
+        StructField("V1Counts",StringType(),True), # Semicolon-delimited blocks, with pound symbol (“#”) delimited fields)
+        StructField("V1Themes",StringType(),True), # Semi-colon delimited
+        StructField("V1Locations",StringType(),True), # semicolon-delimited blocks, with pound symbol (“#”) delimited fields)
+        StructField("V1Persons",StringType(),True), # Semi-colon delimited
+        StructField("V1Organizations",StringType(),True), # Semi-colon delimited
+        StructField("V1.5Tone",StringType(),True), # This field contains a comma-delimited list of six core emotional dimensions
+        StructField("V2GCAM",StringType(),True), # comma-delimited blocks, with colon-delimited key/value pairs
+        StructField("V2EnhancedDates",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedThemes",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedPersons",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedOrganizations",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedLocations",StringType(),True), #semicolon-delimited blocks, with pound symbol (“#”) delimited fields
+        StructField("V1EventIds",StringType(),True),# comma-separated text
+        StructField("V2EnhancedEventIds",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2ExtrasXML",StringType(),True), #XML
         ])
 
 EVENTS_SCHEMA = StructType([
     StructField("GLOBALEVENTID",LongType(),True),
-    StructField("SQLDATE",LongType(),True),
-    StructField("MonthYear",LongType(),True),
-    StructField("Year",LongType(),True),
+    StructField("Day_DATE",StringType(),True),
+    StructField("MonthYear_Date",StringType(),True),
+    StructField("Year_Date",StringType(),True),
     StructField("FractionDate",FloatType(),True),
     StructField("Actor1Code",StringType(),True),
     StructField("Actor1Name",StringType(),True),
@@ -100,13 +93,13 @@ EVENTS_SCHEMA = StructType([
     StructField("ActionGeo_FeatureID",StringType(),True),
     StructField("DATEADDED",LongType(),True),
     StructField("SOURCEURL",StringType(),True)
-    ]) 
+    ])
 
 MENTIONS_SCHEMA = StructType([
     StructField("GLOBALEVENTID",LongType(),True),
     StructField("EventTimeDate",LongType(),True),
     StructField("MentionTimeDate",LongType(),True),
-    StructField("MentionType",LongType(),True),
+    StructField("MentionType",IntegerType(),True),
     StructField("MentionSourceName",StringType(),True),
     StructField("MentionIdentifier",StringType(),True),
     StructField("SentenceID",LongType(),True),
