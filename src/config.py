@@ -1,4 +1,24 @@
+import os
+
+#! spark initialisation
+if os.environ.get("RUN_ON_CLUSTER", None)!=1:
+    print("Not in cluster")
+    os.environ["PYTHONIOENCODING"] = "utf8"
+    import findspark
+    findspark.init()
+
+import pyspark
 from pyspark.sql.types import *
+#! end spark init
+
+class params():
+    HADOOP_PATH = "/datasets/gdeltv2/"
+    LOCAL_PATH = "./data/"
+
+if os.environ.get("RUN_ON_CLUSTER", None)!=1:
+    # override HADOOP path if not in cluster
+    params.HADOOP_PATH = params.LOCAL_PATH
+
 
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\
 ENV_COAL,ENV_OIL,ENV_NATURALGAS,ENV_WINDPOWER,ENV_GEOTHERMAL,ENV_BIOFUEL,ENV_GREEN,\
@@ -8,7 +28,7 @@ MOVEMENT_ENVIRONMENTAL,NATURAL_DISASTER".split(",")
 
 OTHER_KEYS = "MANMADE_DISASTER".split(",")
 
-GKG_SCHEMA = StructType([
+GKG_SCHEMA_KARTHI = StructType([
         StructField("GKGRECORDID",LongType(),True),
         StructField("V1DATE",LongType(),True),
         StructField("V2SourceCollectionIdentifier",LongType(),True),
@@ -29,6 +49,36 @@ GKG_SCHEMA = StructType([
         StructField("V1EventIds",StringType(),True),# comma-separated text
         StructField("V2EnhancedEventIds",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
         StructField("V2ExtrasXML",StringType(),True), #XML
+        ])
+
+GKG_SCHEMA = StructType([
+        StructField("GKGRECORDID",StringType(),True),
+        StructField("DATE",StringType(),True),
+        StructField("SourceCollectionIdentifier",LongType(),True),
+        StructField("SourceCommonName",StringType(),True),
+        StructField("DocumentIdentifier",StringType(),True),
+        StructField("Counts",StringType(),True),
+        StructField("V2Counts",StringType(),True),
+        StructField("Themes",StringType(),True),
+        StructField("V2Themes",StringType(),True),
+        StructField("Locations",StringType(),True),
+        StructField("V2Locations",StringType(),True),
+        StructField("Persons",StringType(),True),
+        StructField("V2Persons",StringType(),True),
+        StructField("Organizations",StringType(),True),
+        StructField("V2Organizations",StringType(),True),
+        StructField("V2Tone",StringType(),True),
+        StructField("Dates",StringType(),True),
+        StructField("GCAM",StringType(),True),
+        StructField("SharingImage",StringType(),True),
+        StructField("RelatedImages",StringType(),True),
+        StructField("SocialImageEmbeds",StringType(),True),
+        StructField("SocialVideoEmbeds",StringType(),True),
+        StructField("Quotations",StringType(),True),
+        StructField("AllNames",StringType(),True),
+        StructField("Amounts",StringType(),True),
+        StructField("TranslationInfo",StringType(),True),
+        StructField("Extras",StringType(),True)
         ])
 
 EVENTS_SCHEMA = StructType([
