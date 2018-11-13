@@ -29,7 +29,7 @@ GDELT has highly been used to make maps and link graphs according to the several
 
 To be able to filter the environmental events we will use the following fields of the 
 
-**[GlobalKnowledgeGraph (GKG) V2.0 :](http://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.pdf)**
+**[GlobalKnowledgeGraph (GKG) V2.1 :](http://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.1.pdf)**
 
 - ```GKGRECORDID```: unique identifier of the GKG record
 - ```V1DATE```: This is the date in YYYYMMDD format on which the news media used to construct this GKG file was published
