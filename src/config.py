@@ -1,23 +1,29 @@
 import os
+import socket
 
+not_cluster = socket.gethostbyaddr(socket.gethostname())[0] != 'iccluster028.iccluster.epfl.ch'
 #! spark initialisation
-if os.environ.get("RUN_ON_CLUSTER", None)!=1:
+if not_cluster:
     print("Not in cluster")
     os.environ["PYTHONIOENCODING"] = "utf8"
-    #import findspark
-    #findspark.init()
+    import findspark
+    findspark.init()
 
 import pyspark
 from pyspark.sql.types import *
 #! end spark init
 
-class params():
-    HADOOP_PATH = "/datasets/gdeltv2/"
-    LOCAL_PATH = "./data/"
 
-#if os.environ.get("RUN_ON_CLUSTER", None)!=1:
+GDELT_PATH = "/datasets/gdeltv2/"
+OUTPUT_PATH = "./data/"
+
+if not_cluster:
     # override HADOOP path if not in cluster
-    #params.HADOOP_PATH = params.LOCAL_PATH
+    GDELT_PATH = OUTPUT_PATH+"gdletv2/"
+else:
+    import pwd
+    user = pwd.getpwuid( os.getuid() )[ 0 ]
+    OUTPUT_PATH = "/user/"+user+"ada2018/data/"
 
 
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\
@@ -54,7 +60,7 @@ GKG_SCHEMA_KARTHI = StructType([
 GKG_SCHEMA = StructType([
         StructField("GKGRECORDID",StringType(),True),
         StructField("DATE",StringType(),True),
-        StructField("SourceCollectionIdentifier",LongType(),True),
+        StructField("SourceCollectionIdentifier",StringType(),True),
         StructField("SourceCommonName",StringType(),True),
         StructField("DocumentIdentifier",StringType(),True),
         StructField("Counts",StringType(),True),
@@ -149,7 +155,7 @@ MENTIONS_SCHEMA = StructType([
     StructField("GLOBALEVENTID",LongType(),True),
     StructField("EventTimeDate",LongType(),True),
     StructField("MentionTimeDate",LongType(),True),
-    StructField("MentionType",IntegerType(),True),
+    StructField("MentionType",LongType(),True),
     StructField("MentionSourceName",StringType(),True),
     StructField("MentionIdentifier",StringType(),True),
     StructField("SentenceID",LongType(),True),
