@@ -19,7 +19,7 @@ OUTPUT_PATH = "./data/"
 
 if not_cluster:
     # override HADOOP path if not in cluster
-    GDELT_PATH = OUTPUT_PATH+"gdletv2/"
+    GDELT_PATH = OUTPUT_PATH+"gdeltv2/"
 else:
     import pwd
     user = pwd.getpwuid( os.getuid() )[ 0 ]
