@@ -16,11 +16,10 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 # Research questions
 - What is the evolution of the worldwide news coverage (number of articles and tone) of environmental related events?
 - What are the major recent events related to environment?
-- How much place is taking environmental related news in European countries and worldwide (in space and time) ?
+- How much place is taking environmental related news in European countries and worldwide (in space and time)?
 - What is the attention of regions of the world on the disasters occurring in a country?
 - What is the link between the actors of a particular event in the world?
-- What is the social impact of a particular scandal in the country where it has happened and in the world? (public reaction, protests, boycott, fall of tourism...)
-- What is the political impact of a particular scandal in the country where it has happened and in the world? (debate, resignation...)
+- Is there any relation between the economy and the news coverage of environment in countries?
 
 
 
