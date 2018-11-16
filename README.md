@@ -1,3 +1,6 @@
+
+[Updated 16.11.2018]
+
 # **Ecological scandals in the world through the news**
 
 # Abstract
@@ -11,11 +14,14 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 
 
 # Research questions
-- What are the recent ecological scandals and how we can classify them?
-- What is the media coverage of ecological scandals worldwide? (number of articles, tone, space and time dimension)
+- What is the evolution of the worldwide news coverage (number of articles and tone) of environmental related events?
+- What are the major recent events related to environment?
+- How much place is taking environmental related news in European countries and worldwide (in space and time) ?
+- What is the attention of regions of the world on the disasters occurring in a country?
+- What is the link between the actors of a particular event in the world?
 - What is the social impact of a particular scandal in the country where it has happened and in the world? (public reaction, protests, boycott, fall of tourism...)
 - What is the political impact of a particular scandal in the country where it has happened and in the world? (debate, resignation...)
-- What is the link between a particular scandal and other scandals in the world? (influence on the frequency of a type of ecological scandal)
+
 
 
 # Dataset
@@ -58,16 +64,10 @@ To be able to filter the environmental events we will use the following fields o
 # A list of internal milestones up until project milestone 2
 |Week #|Internal Milestone|
 |---|---|
-|1|Exploratory data analysis, cleaning of the dataset to isolate events related to environmental scandals and extract relevant information from them. Find a way to classify environmental scandals (first research question).|
-|2|Aggregation of some sample data into a manageable data structure. Visualize a subset of the data (a country, some events) the media coverage of events on a world map (second research question).|
-|3|Try to find links between scandals (eg. DieselGate among severals car constructors). Exploratory data analysis to prepare the path to answer the social/individual impact of scandals (last three questions).|
+|1|Discussion to refine the scope of the project. Extension of the subject to include all environmental related events (not only scandals). Redefine research questions based on TA's remarks and existing literature. Set up the tools to work on the cluster.
+|2|Exploratory data analysis, cleaning of the dataset to isolate events related to environment and extract relevant information from them to answer the first research question.|
+|3||
 
 
 
 # Questions for TAs
-
-We have only a pre-analysis point of view of the dataset. As such, we would like to know whether the dataset will contain sufficient information to realize our objectives.
-
-Do you think that the social/political questions could be answered with this dataset?
-
-Is our definition of ecological scandal sufficiently precise?
