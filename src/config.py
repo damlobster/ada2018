@@ -32,59 +32,47 @@ ENV_OVERFISH,ENV_DEFORESTATION,ENV_FORESTRY,ENV_MINING,ENV_FISHERY,ENV_WATERWAYS
 ENV_SPECIESENDANGERED,ENV_SPECIESEXTINCT,SELF_IDENTIFIED_ENVIRON_DISASTER,ENVIRONMENT,\
 MOVEMENT_ENVIRONMENTAL,NATURAL_DISASTER".split(",")
 
+KEPT_THEMES = "AFFECT,AGRICULTURE,BAN,CONSTITUTIONAL,CORRUPTION,DISPLACED,ENV_BIOFUEL,\
+ENV_CARBONCAPTURE,ENV_CLIMATECHANGE,ENV_COAL,ENV_DEFORESTATION,ENV_FISHERY,ENV_FORESTRY,\
+ENV_GEOTHERMAL,ENV_GREEN,ENV_HYDRO,ENV_METALS,ENV_MINING,ENV_NATURALGAS,ENV_NUCLEARPOWER,\
+ENV_OIL,ENV_OVERFISH,ENV_POACHING,ENV_SOLAR,ENV_SPECIESENDANGERED,ENV_SPECIESEXTINCT,\
+ENV_WATERWAYS,ENV_WINDPOWER,ETH_INDIGINOUS,EVACUATION,EXILE,GENERAL_GOVERNMENT,INFO_HOAX,\
+INFO_RUMOR,KILL,LEGALIZE,LEGISLATION,LOCUSTS,MANMADE_DISASTER,MANMADE_DISASTER_IMPLIED,\
+MARITIME,MEDIA_CENSORSHIP,MEDIA_MSM,MEDIA_SOCIAL,MOVEMENT_ENVIRONMENTAL,NATURAL_DISASTER,\
+PIPELINE_INCIDENT,PROTEST,SCANDAL,SCIENCE,SELF_IDENTIFIED_ENVIRON_DISASTER,\
+SELF_IDENTIFIED_HUMANITARIAN_CRISIS,SLFID_NATURAL_RESOURCES,WATER_SECURITY".split("\n")
+
 OTHER_KEYS = "MANMADE_DISASTER".split(",")
 
-GKG_SCHEMA_KARTHI = StructType([
-        StructField("GKGRECORDID",LongType(),True),
-        StructField("V1DATE",LongType(),True),
-        StructField("V2SourceCollectionIdentifier",LongType(),True),
-        StructField("V2SubSourceCommonName",StringType(),True),
-        StructField("V2DocumentIdentifier",StringType(),True),
-        StructField("V1Counts",StringType(),True), # Semicolon-delimited blocks, with pound symbol ("#") delimited fields)
-        StructField("V1Themes",StringType(),True), # Semi-colon delimited
-        StructField("V1Locations",StringType(),True), # semicolon-delimited blocks, with pound symbol ("#") delimited fields)
-        StructField("V1Persons",StringType(),True), # Semi-colon delimited
-        StructField("V1Organizations",StringType(),True), # Semi-colon delimited
-        StructField("V1.5Tone",StringType(),True), # This field contains a comma-delimited list of six core emotional dimensions
-        StructField("V2GCAM",StringType(),True), # comma-delimited blocks, with colon-delimited key/value pairs
-        StructField("V2EnhancedDates",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedThemes",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedPersons",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedOrganizations",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedLocations",StringType(),True), #semicolon-delimited blocks, with pound symbol ("#") delimited fields
-        StructField("V1EventIds",StringType(),True),# comma-separated text
-        StructField("V2EnhancedEventIds",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2ExtrasXML",StringType(),True), #XML
-        ])
 
 GKG_SCHEMA = StructType([
         StructField("GKGRECORDID",StringType(),True),
-        StructField("DATE",StringType(),True),
-        StructField("SourceCollectionIdentifier",StringType(),True),
-        StructField("SourceCommonName",StringType(),True),
-        StructField("DocumentIdentifier",StringType(),True),
-        StructField("Counts",StringType(),True),
+        StructField("V2DATE",StringType(),True),
+        StructField("V2SourceCollectionIdentifier",StringType(),True),
+        StructField("V2SourceCommonName",StringType(),True),
+        StructField("V2DocumentIdentifier",StringType(),True),
+        StructField("V1Counts",StringType(),True),
         StructField("V2Counts",StringType(),True),
-        StructField("Themes",StringType(),True),
+        StructField("V1Themes",StringType(),True),
         StructField("V2Themes",StringType(),True),
-        StructField("Locations",StringType(),True),
+        StructField("V1Locations",StringType(),True),
         StructField("V2Locations",StringType(),True),
-        StructField("Persons",StringType(),True),
+        StructField("V1Persons",StringType(),True),
         StructField("V2Persons",StringType(),True),
-        StructField("Organizations",StringType(),True),
+        StructField("V1Organizations",StringType(),True),
         StructField("V2Organizations",StringType(),True),
-        StructField("V2Tone",StringType(),True),
-        StructField("Dates",StringType(),True),
-        StructField("GCAM",StringType(),True),
-        StructField("SharingImage",StringType(),True),
-        StructField("RelatedImages",StringType(),True),
-        StructField("SocialImageEmbeds",StringType(),True),
-        StructField("SocialVideoEmbeds",StringType(),True),
-        StructField("Quotations",StringType(),True),
-        StructField("AllNames",StringType(),True),
-        StructField("Amounts",StringType(),True),
-        StructField("TranslationInfo",StringType(),True),
-        StructField("Extras",StringType(),True)
+        StructField("V1Tone",StringType(),True),
+        StructField("V2Dates",StringType(),True),
+        StructField("V2GCAM",StringType(),True),
+        StructField("V2SharingImage",StringType(),True),
+        StructField("V2RelatedImages",StringType(),True),
+        StructField("V2SocialImageEmbeds",StringType(),True),
+        StructField("V2SocialVideoEmbeds",StringType(),True),
+        StructField("V2Quotations",StringType(),True),
+        StructField("V2AllNames",StringType(),True),
+        StructField("V2Amounts",StringType(),True),
+        StructField("V2TranslationInfo",StringType(),True),
+        StructField("V2Extras",StringType(),True)
         ])
 
 EVENTS_SCHEMA = StructType([
@@ -169,3 +157,26 @@ MENTIONS_SCHEMA = StructType([
     StructField("MentionDocTranslationInfo",StringType(),True),
     StructField("Extras",StringType(),True)
     ])
+
+GKG_SCHEMA_KARTHI = StructType([
+        StructField("GKGRECORDID",LongType(),True),
+        StructField("V1DATE",LongType(),True),
+        StructField("V2SourceCollectionIdentifier",LongType(),True),
+        StructField("V2SubSourceCommonName",StringType(),True),
+        StructField("V2DocumentIdentifier",StringType(),True),
+        StructField("V1Counts",StringType(),True), # Semicolon-delimited blocks, with pound symbol ("#") delimited fields)
+        StructField("V1Themes",StringType(),True), # Semi-colon delimited
+        StructField("V1Locations",StringType(),True), # semicolon-delimited blocks, with pound symbol ("#") delimited fields)
+        StructField("V1Persons",StringType(),True), # Semi-colon delimited
+        StructField("V1Organizations",StringType(),True), # Semi-colon delimited
+        StructField("V1.5Tone",StringType(),True), # This field contains a comma-delimited list of six core emotional dimensions
+        StructField("V2GCAM",StringType(),True), # comma-delimited blocks, with colon-delimited key/value pairs
+        StructField("V2EnhancedDates",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedThemes",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedPersons",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedOrganizations",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2EnhancedLocations",StringType(),True), #semicolon-delimited blocks, with pound symbol ("#") delimited fields
+        StructField("V1EventIds",StringType(),True),# comma-separated text
+        StructField("V2EnhancedEventIds",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
+        StructField("V2ExtrasXML",StringType(),True), #XML
+        ])
