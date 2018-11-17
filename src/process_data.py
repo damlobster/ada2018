@@ -17,8 +17,12 @@ def load_gkg(file):
     tmp = gkg_df.select("GKGRECORDID", "V1Themes").withColumn("T", F.explode(F.split(gkg_df.V1Themes, ";"))).select("GKGRECORDID", "T")
     tmp = tmp.filter(tmp.T.isin(config.KEPT_THEMES))\
         .groupby("GKGRECORDID").pivot("T").count()
-    tmp.show(10)
-    return gkg_df.drop("V1Themes").join(tmp, gkg_df.GKGRECORDID==tmp.GKGRECORDID)
+    
+    g = gkg_df.alias("g")
+    t = tmp.alias("t")
+    res = g.drop("V1Themes").join(t, F.col("g.GKGRECORDID") == F.col("t.GKGRECORDID")).drop("GKGRECORDID")
+    res.show(10)
+    return res
 
 def load_event(file):
     events = spark.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.GKG_SCHEMA, mode="DROPMALFORMED")
@@ -40,8 +44,12 @@ spark = SparkSession.builder.getOrCreate()
 
 #files_df = spark.read.parquet(params.LOCAL_PATH + "gdelt_files_index.parquet")
 
-#gkg_df = load_gkg("201602[0-9]*.gkg.csv")
-gkg_df = load_gkg("20150218230000.gkg.csv")
+if config.not_cluster:
+    gkg_df = load_gkg("20150218230000.gkg.csv")
+else:
+    gkg_df = load_gkg("20160218[0-9]*.gkg.csv")
+
+gkg_df.write.mode('overwrite').parquet(f"{config.OUTPUT_PATH}/gkg.parquet")
 #mentions_df = load_mentions("201602[0-9]*.mentions.CSV")
 
 gkg_df.printSchema()
