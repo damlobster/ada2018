@@ -22,8 +22,9 @@ if not_cluster:
     GDELT_PATH = OUTPUT_PATH+"gdeltv2/"
 else:
     import pwd
-    user = pwd.getpwuid( os.getuid() )[ 0 ]
-    OUTPUT_PATH = "/user/"+user+"ada2018/data/"
+    user = pwd.getpwuid(os.getuid())[0]
+    OUTPUT_PATH = "/user/"+user+"/ada2018/data/"
+    print("Output path = " + OUTPUT_PATH)
 
 
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\

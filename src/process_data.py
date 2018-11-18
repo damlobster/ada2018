@@ -17,10 +17,8 @@ def load_gkg(file):
     tmp = gkg_df.select("GKGRECORDID", "V1Themes").withColumn("T", F.explode(F.split(gkg_df.V1Themes, ";"))).select("GKGRECORDID", "T")
     tmp = tmp.filter(tmp.T.isin(config.KEPT_THEMES))\
         .groupby("GKGRECORDID").pivot("T").count()
-    
-    g = gkg_df.alias("g")
-    t = tmp.alias("t")
-    res = g.drop("V1Themes").join(t, F.col("g.GKGRECORDID") == F.col("t.GKGRECORDID")).drop("GKGRECORDID")
+
+    res = gkg_df.drop("V1Themes").join(tmp, ["GKGRECORDID"])
     res.show(10)
     return res
 
@@ -43,17 +41,23 @@ def load_mentions(file):
 spark = SparkSession.builder.getOrCreate()
 
 #files_df = spark.read.parquet(params.LOCAL_PATH + "gdelt_files_index.parquet")
+year = "2017"
+step = "MENT+EVENTS"
 
-if config.not_cluster:
-    gkg_df = load_gkg("20150218230000.gkg.csv")
+if step == "GKG":
+    if config.not_cluster:
+        gkg_df = load_gkg("20150218230000.gkg.csv")
+    else:
+        gkg_df = load_gkg(year+"[0-9]*.gkg.csv")
+
+    gkg_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg_"+year+".parquet")
 else:
-    gkg_df = load_gkg("20160218[0-9]*.gkg.csv")
+    gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_[0-9]*.parquet")
+    mentions_df = load_mentions("[0-9]*.mentions.CSV")
+    mentions_df.join(gkg_df, gkg_df.V2DocumentIdentifier==mentions_df.MentionIdentifier)
 
-gkg_df.write.mode('overwrite').parquet(f"{config.OUTPUT_PATH}/gkg.parquet")
-#mentions_df = load_mentions("201602[0-9]*.mentions.CSV")
-
-gkg_df.printSchema()
-gkg_df.show(2)
+#gkg_df.printSchema()
+#gkg_df.show(2)
 """mentions_df.printSchema()
 
 counts = gkg_df.join(mentions_df, gkg_df.DocumentIdentifier==mentions_df.MentionIdentifier)\
