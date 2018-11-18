@@ -23,26 +23,28 @@ def load_gkg(file):
     return res
 
 def load_event(file):
-    events = spark.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.GKG_SCHEMA, mode="DROPMALFORMED")
-    events = events .withColumn("DATE", F.to_timestamp(gkg_df.Day_DATE, "yyyyMMdd"))
+    events = spark.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.EVENTS_SCHEMA, mode="DROPMALFORMED")
+    events = events.withColumn("DATE", F.to_timestamp(events.Day_DATE, "yyyyMMdd"))
     events = events.select("GLOBALEVENTID", "DATE", "Actor1Code", "Actor1Name", "Actor1CountryCode", \
         "Actor2Code", "Actor2Name", "Actor2CountryCode", "IsRootEvent", "EventCode", "GoldsteinScale", \
         "NumMentions", "NumSources", "NumArticles", "AvgTone", "Actor1Geo_Type", "Actor1Geo_FullName", \
         "Actor1Geo_CountryCode", "Actor2Geo_Type", "Actor2Geo_FullName", "Actor2Geo_CountryCode", \
-        "Action2Geo_Type", "Action2Geo_FullName", "Action2Geo_CountryCode")
+        "ActionGeo_Type", "ActionGeo_FullName", "ActionGeo_CountryCode")
     return events
 
 def load_mentions(file):
     mentions_df = spark.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.MENTIONS_SCHEMA, mode="DROPMALFORMED")
-    mentions_df = mentions_df.select("GLOBALEVENTID", "EventTimeDate", "MentionTimeDate", "MentionSourceName", "MentionIdentifier")
+    mentions_df = mentions_df   .select("GLOBALEVENTID", "EventTimeDate", "MentionTimeDate", "MentionSourceName", "MentionIdentifier") \
+                                .withColumn("EventTimeDate", F.to_timestamp(mentions_df.EventTimeDate, "yyyyMMddHHmmss")) \
+                                .withColumn("MentionTimeDate", F.to_timestamp(mentions_df.MentionTimeDate, "yyyyMMddHHmmss"))
     return mentions_df
 
 
 spark = SparkSession.builder.getOrCreate()
 
 #files_df = spark.read.parquet(params.LOCAL_PATH + "gdelt_files_index.parquet")
-year = "2017"
-step = "MENT+EVENTS"
+year = "2015"
+step = "EVENTS"
 
 if step == "GKG":
     if config.not_cluster:
@@ -51,10 +53,16 @@ if step == "GKG":
         gkg_df = load_gkg(year+"[0-9]*.gkg.csv")
 
     gkg_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg_"+year+".parquet")
-else:
-    gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_[0-9]*.parquet")
-    mentions_df = load_mentions("[0-9]*.mentions.CSV")
-    mentions_df.join(gkg_df, gkg_df.V2DocumentIdentifier==mentions_df.MentionIdentifier)
+elif step == "MENTIONS":
+    gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_[0-9]*.parquet").selectExpr("V2DocumentIdentifier as MentionIdentifier")
+    mentions_df = load_mentions("[0-9]*.mentions.CSV").join(gkg_df.distinct(), ["MentionIdentifier"])
+    mentions_df.printSchema()
+    mentions_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/mentions.parquet")
+else: #EVENTS 
+    mentions_df = spark.read.parquet(config.OUTPUT_PATH+"/mentions.parquet").select("GLOBALEVENTID")
+    events_df = load_event("[0-9]*.export.CSV").join(mentions_df.distinct(), ["GLOBALEVENTID"])
+    events_df.printSchema()
+    events_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/events.parquet")
 
 #gkg_df.printSchema()
 #gkg_df.show(2)

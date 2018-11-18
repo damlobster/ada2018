@@ -142,8 +142,8 @@ EVENTS_SCHEMA = StructType([
 
 MENTIONS_SCHEMA = StructType([
     StructField("GLOBALEVENTID",LongType(),True),
-    StructField("EventTimeDate",LongType(),True),
-    StructField("MentionTimeDate",LongType(),True),
+    StructField("EventTimeDate",StringType(),True),
+    StructField("MentionTimeDate",StringType(),True),
     StructField("MentionType",LongType(),True),
     StructField("MentionSourceName",StringType(),True),
     StructField("MentionIdentifier",StringType(),True),
