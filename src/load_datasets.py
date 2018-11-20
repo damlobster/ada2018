@@ -1,0 +1,46 @@
+import sys
+import os
+
+import config 
+
+import pyspark
+import datetime
+from pyspark.sql import *
+import pyspark.sql.functions as F
+from pyspark.sql.types import *
+
+def load_gkg(sc, file):
+    gkg_df = sc.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.GKG_SCHEMA, mode="DROPMALFORMED")
+    gkg_df = gkg_df .withColumn("V2DATE", F.to_timestamp(gkg_df.V2DATE, "yyyyMMddHHmmss"))\
+                    .filter(" OR ".join(['V1Themes like "%{}%"'.format(k) for k in ["ENV_", "ENVIRON", "DISASTER"]]))
+    gkg_df = gkg_df.select("GKGRECORDID", "V2DATE", "V2SourceCommonName", "V2DocumentIdentifier", "V1Counts", "V1Themes", "V1Locations", "V1Organizations", "V1Tone")
+    tmp = gkg_df.select("GKGRECORDID", "V1Themes").withColumn("T", F.explode(F.split(gkg_df.V1Themes, ";"))).select("GKGRECORDID", "T")
+    tmp = tmp.filter(tmp.T.isin(config.KEPT_THEMES))\
+        .groupby("GKGRECORDID").pivot("T").count()
+
+    res = gkg_df.drop("V1Themes").join(tmp, ["GKGRECORDID"])
+    res.show(10)
+    return res
+
+def load_events(sc, file):
+    events = sc.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.EVENTS_SCHEMA, mode="DROPMALFORMED")
+    events = events.withColumn("DATE", F.to_timestamp(events.Day_DATE, "yyyyMMdd"))
+    events = events.select("GLOBALEVENTID", "DATE", "Actor1Code", "Actor1Name", "Actor1CountryCode", \
+        "Actor2Code", "Actor2Name", "Actor2CountryCode", "IsRootEvent", "EventCode", "GoldsteinScale", \
+        "NumMentions", "NumSources", "NumArticles", "AvgTone", "Actor1Geo_Type", "Actor1Geo_FullName", \
+        "Actor1Geo_CountryCode", "Actor2Geo_Type", "Actor2Geo_FullName", "Actor2Geo_CountryCode", \
+        "ActionGeo_Type", "ActionGeo_FullName", "ActionGeo_CountryCode")
+    return events
+
+def load_mentions(sc, file):
+    mentions_df = sc.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.MENTIONS_SCHEMA, mode="DROPMALFORMED")
+    mentions_df = mentions_df   .select("GLOBALEVENTID", "EventTimeDate", "MentionTimeDate", "MentionSourceName", "MentionIdentifier") \
+                                .withColumn("EventTimeDate", F.to_timestamp(mentions_df.EventTimeDate, "yyyyMMddHHmmss")) \
+                                .withColumn("MentionTimeDate", F.to_timestamp(mentions_df.MentionTimeDate, "yyyyMMddHHmmss"))
+    return mentions_df
+
+def get_from_hadoop(from_, to_=None):
+    if to_ is None:
+        to_ = ".data/"+from_.split("/")[-1]
+    cmd = "hadoop fs -get "+from_+" "+to_
+    os.system(cmd)
