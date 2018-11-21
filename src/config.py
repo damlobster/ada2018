@@ -158,26 +158,3 @@ MENTIONS_SCHEMA = StructType([
     StructField("MentionDocTranslationInfo",StringType(),True),
     StructField("Extras",StringType(),True)
     ])
-
-GKG_SCHEMA_KARTHI = StructType([
-        StructField("GKGRECORDID",LongType(),True),
-        StructField("V1DATE",LongType(),True),
-        StructField("V2SourceCollectionIdentifier",LongType(),True),
-        StructField("V2SubSourceCommonName",StringType(),True),
-        StructField("V2DocumentIdentifier",StringType(),True),
-        StructField("V1Counts",StringType(),True), # Semicolon-delimited blocks, with pound symbol ("#") delimited fields)
-        StructField("V1Themes",StringType(),True), # Semi-colon delimited
-        StructField("V1Locations",StringType(),True), # semicolon-delimited blocks, with pound symbol ("#") delimited fields)
-        StructField("V1Persons",StringType(),True), # Semi-colon delimited
-        StructField("V1Organizations",StringType(),True), # Semi-colon delimited
-        StructField("V1.5Tone",StringType(),True), # This field contains a comma-delimited list of six core emotional dimensions
-        StructField("V2GCAM",StringType(),True), # comma-delimited blocks, with colon-delimited key/value pairs
-        StructField("V2EnhancedDates",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedThemes",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedPersons",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedOrganizations",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2EnhancedLocations",StringType(),True), #semicolon-delimited blocks, with pound symbol ("#") delimited fields
-        StructField("V1EventIds",StringType(),True),# comma-separated text
-        StructField("V2EnhancedEventIds",StringType(),True), # semicolon-delimited blocks, with comma-delimited fields
-        StructField("V2ExtrasXML",StringType(),True), #XML
-        ])
