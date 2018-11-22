@@ -26,7 +26,10 @@ def load_events(sc, file):
     events = sc.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.EVENTS_SCHEMA, mode="DROPMALFORMED")
     events = events.withColumn("DATE", F.to_timestamp(events.Day_DATE, "yyyyMMdd"))
     events = events.select("GLOBALEVENTID", "DATE", "Actor1Code", "Actor1Name", "Actor1CountryCode", \
-        "Actor2Code", "Actor2Name", "Actor2CountryCode", "IsRootEvent", "EventCode", "GoldsteinScale", \
+        "Actor1Type1Code", "Actor1Type2Code", "Actor1Type3Code", \
+        "Actor2Code", "Actor2Name", "Actor2CountryCode", \
+        "Actor2Type1Code", "Actor2Type2Code", "Actor2Type3Code", \
+        "IsRootEvent", "EventCode", "GoldsteinScale", \
         "NumMentions", "NumSources", "NumArticles", "AvgTone", "Actor1Geo_Type", "Actor1Geo_FullName", \
         "Actor1Geo_CountryCode", "Actor2Geo_Type", "Actor2Geo_FullName", "Actor2Geo_CountryCode", \
         "ActionGeo_Type", "ActionGeo_FullName", "ActionGeo_CountryCode")
