@@ -30,6 +30,6 @@ elif step == "MENTIONS":
     mentions_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/mentions.parquet")
 else:
     mentions_df = spark.read.parquet(config.OUTPUT_PATH+"/mentions.parquet").select("GLOBALEVENTID")
-    events_df = load_event(spark, "[0-9]*.export.CSV").join(mentions_df.distinct(), ["GLOBALEVENTID"])
+    events_df = load_datasets.load_events(spark, "[0-9]*.export.CSV").join(mentions_df.distinct(), ["GLOBALEVENTID"])
     events_df.printSchema()
     events_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/events.parquet")
