@@ -9,16 +9,21 @@ from pyspark.sql import *
 import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
-def load_gkg(sc, file):
+def load_gkg(sc, file, small=True):
+    ENV_TAGS = ["ENV_", "SELF_IDENTIFIED_ENVIRON_DISASTER", "NATURAL_DISASTER", "MOVEMENT_ENVIRONMENTAL"]
     gkg_df = sc.read.csv(config.GDELT_PATH + file, sep="\t", header=False, schema=config.GKG_SCHEMA, mode="DROPMALFORMED")
     gkg_df = gkg_df .withColumn("V2DATE", F.to_timestamp(gkg_df.V2DATE, "yyyyMMddHHmmss"))\
-                    .filter(" OR ".join(['V1Themes like "%{}%"'.format(k) for k in ["ENV_", "ENVIRON", "DISASTER"]]))
+                    .filter(" OR ".join(['V1Themes like "%{}%"'.format(k) for k in ENV_TAGS]))
     gkg_df = gkg_df.select("GKGRECORDID", "V2DATE", "V2SourceCommonName", "V2DocumentIdentifier", "V1Counts", "V1Themes", "V1Locations", "V1Organizations", "V1Tone")
-    tmp = gkg_df.select("GKGRECORDID", "V1Themes").withColumn("T", F.explode(F.split(gkg_df.V1Themes, ";"))).select("GKGRECORDID", "T")
-    tmp = tmp.filter(tmp.T.isin(config.KEPT_THEMES))\
-        .groupby("GKGRECORDID").pivot("T").count()
-
-    res = gkg_df.drop("V1Themes").join(tmp, ["GKGRECORDID"])
+    res = None
+    if small:
+        res = gkg_df.drop("V1Themes")
+    else:
+        tmp = gkg_df.select("GKGRECORDID", "V1Themes").withColumn("T", F.explode(F.split(gkg_df.V1Themes, ";"))).select("GKGRECORDID", "T")
+        tmp = tmp.filter(tmp.T.isin(config.KEPT_THEMES))\
+            .groupby("GKGRECORDID").pivot("T").count()
+        res = gkg_df.drop("V1Themes").join(tmp, ["GKGRECORDID"])
+        
     res.show(10)
     return res
 
@@ -44,6 +49,6 @@ def load_mentions(sc, file):
 
 def get_from_hadoop(from_, to_=None):
     if to_ is None:
-        to_ = ".data/"+from_.split("/")[-1]
+        to_ = "data/"+from_.split("/")[-1]
     cmd = "hadoop fs -get "+from_+" "+to_
     os.system(cmd)
