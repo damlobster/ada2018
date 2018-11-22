@@ -13,7 +13,7 @@ from pyspark.sql.types import *
 spark = SparkSession.builder.getOrCreate()
 
 mentions_df = spark.read.parquet(config.OUTPUT_PATH+"/mentions.parquet").select("MentionIdentifier","MentionTimeDate")
-gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_[0-9]*.parquet").select("V2DocumentIdentifier","V1Tone")
+gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_small.parquet").select("V2DocumentIdentifier","V1Tone")
 gkg_df = gkg_df.withColumn("V1Tone", F.split(gkg_df.V1Tone, ",")[0])
 gkg_df = gkg_df.dropna(subset=("V1Tone"))
 gkg_df = gkg_df.withColumn("V1Tone", gkg_df.V1Tone.cast("float"))
