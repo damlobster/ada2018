@@ -1,23 +1,24 @@
 import os
 import socket
 
+#This file contains the name of the columns, the themes that we have kept as well as some code for pratical purpose.
+
+
+
+
+#Some general paths
+GDELT_PATH = "/datasets/gdeltv2/"
+OUTPUT_PATH = "./data/"
+
+#For practial purpose
 not_cluster = socket.gethostbyaddr(socket.gethostname())[0] != 'iccluster028.iccluster.epfl.ch'
+
 #! spark initialisation
 if not_cluster:
     print("Not in cluster")
     os.environ["PYTHONIOENCODING"] = "utf8"
     import findspark
     findspark.init()
-
-import pyspark
-from pyspark.sql.types import *
-#! end spark init
-
-
-GDELT_PATH = "/datasets/gdeltv2/"
-OUTPUT_PATH = "./data/"
-
-if not_cluster:
     # override HADOOP path if not in cluster
     GDELT_PATH = OUTPUT_PATH+"gdeltv2/"
 else:
@@ -26,13 +27,20 @@ else:
     OUTPUT_PATH = "/user/"+user+"/ada2018/data/"
     print("Output path = " + OUTPUT_PATH)
 
+import pyspark
+from pyspark.sql.types import *
+#! end spark init
 
+
+    
+#Themes related to environment
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\
 ENV_COAL,ENV_OIL,ENV_NATURALGAS,ENV_WINDPOWER,ENV_GEOTHERMAL,ENV_BIOFUEL,ENV_GREEN,\
 ENV_OVERFISH,ENV_DEFORESTATION,ENV_FORESTRY,ENV_MINING,ENV_FISHERY,ENV_WATERWAYS,\
 ENV_SPECIESENDANGERED,ENV_SPECIESEXTINCT,SELF_IDENTIFIED_ENVIRON_DISASTER,ENVIRONMENT,\
 MOVEMENT_ENVIRONMENTAL,NATURAL_DISASTER".split(",")
 
+#All the themes we have kept
 KEPT_THEMES = "AFFECT,AGRICULTURE,BAN,CONSTITUTIONAL,CORRUPTION,DISPLACED,ENV_BIOFUEL,\
 ENV_CARBONCAPTURE,ENV_CLIMATECHANGE,ENV_COAL,ENV_DEFORESTATION,ENV_FISHERY,ENV_FORESTRY,\
 ENV_GEOTHERMAL,ENV_GREEN,ENV_HYDRO,ENV_METALS,ENV_MINING,ENV_NATURALGAS,ENV_NUCLEARPOWER,\
@@ -45,7 +53,7 @@ SELF_IDENTIFIED_HUMANITARIAN_CRISIS,SLFID_NATURAL_RESOURCES,WATER_SECURITY".spli
 
 OTHER_KEYS = "MANMADE_DISASTER".split(",")
 
-
+#Structure of the GKG dataset
 GKG_SCHEMA = StructType([
         StructField("GKGRECORDID",StringType(),True),
         StructField("V2DATE",StringType(),True),
@@ -76,6 +84,8 @@ GKG_SCHEMA = StructType([
         StructField("V2Extras",StringType(),True)
         ])
 
+
+#Structure of the EVENT dataset        
 EVENTS_SCHEMA = StructType([
     StructField("GLOBALEVENTID",LongType(),True),
     StructField("Day_DATE",StringType(),True),
@@ -140,6 +150,8 @@ EVENTS_SCHEMA = StructType([
     StructField("SOURCEURL",StringType(),True)
     ])
 
+    
+#Structure of the MENTION dataset
 MENTIONS_SCHEMA = StructType([
     StructField("GLOBALEVENTID",LongType(),True),
     StructField("EventTimeDate",StringType(),True),

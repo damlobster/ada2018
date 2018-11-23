@@ -1,13 +1,12 @@
 import sys
 import os
-
-import config 
-
 import pyspark
 import datetime
 from pyspark.sql import *
 import pyspark.sql.functions as F
 from pyspark.sql.types import *
+
+import config 
 
 def load_gkg(sc, file, small=True):
     ENV_TAGS = ["ENV_", "SELF_IDENTIFIED_ENVIRON_DISASTER", "NATURAL_DISASTER", "MOVEMENT_ENVIRONMENTAL"]

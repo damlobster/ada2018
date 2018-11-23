@@ -1,4 +1,4 @@
-
+﻿
 
 [Updated 23.11.2018]
 
@@ -90,7 +90,3 @@ We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then
 |1|Discussion to refine the scope of the project. Extension of the subject to include all environmental related events (not only scandals). Redefine research questions based on TA's remarks and existing literature. Set up the tools to work on the cluster.
 |2|Filter the dataset to isolate events related to environment and extract useful fields from it.|
 |3|Extract relevant information from the filtered dataset to answer each of our research questions. Start a first analysis and set up the pipeline to answer the questions.|
-
-
-
-# Questions for TAs
