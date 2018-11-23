@@ -4,11 +4,11 @@
 # **Environment news in the world**
 
 # Abstract
-Concerns about environmental degradation takes a growing place in the collective consciousness. 
+Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media news plays an important role in reporting environmental news to population, being for reporting natural disaster that causes important damage to population, or revealing the douteuse practice of a company, politic views on environment etc and can have an impact at a large scale...
 
-We would like to analyse the impact of ecological scandals on the society from a media point of view. We define ecological scandals as being punctual (in space and time) events having disastrous consequences on nature and that have been highly exposed by medias.
+We would like to analyse the environment news coverage in the world. 
 
-More precisely, we would like to see where the primary ecological scandals have taken place, how a particular scandal is connected to other scandals in the world, how important they are and most importantly what are the consequences on the society (economy, politics, social...) due to media coverage.
+More precisely, we would like to see what are the main actors implied in environment, how they are connected to each other .
 
 For this analysis, we are going to use the GDELT v2.0 dataset which contains information from the world's news media.
 
@@ -47,8 +47,8 @@ We will use the following fields of the
 
 **[GdeltEventDatabase V2.0: ](http://data.gdeltproject.org/documentation/GDELT-Event_Codebook-V2.0.pdf)**
 
-- ```GLOBALEVENTID```: Globally unique identifier assigned to each event record that uniquely identifies it in the master dataset.
-- ```Day_DATE```: Date the event took place in YYYYMMDD format.
+- ```GLOBALEVENTID```: Globally unique identifier assigned to each event record that uniquely identifies it in the master dataset
+- ```Day_DATE```: Date the event took place in YYYYMMDD format
 - ```Actor1Code```: Complete raw CAMEO code for Actor1
 - ```Actor1Name```: The actual name of the Actor 1
 - ```Actor1CountryCode```: The 3-character CAMEO code for the country affiliation of Actor1
@@ -56,7 +56,7 @@ We will use the following fields of the
 - ```Actor1Type2Code```: If multiple type/role codes are specified for Actor1, this returns the second code
 - ```Actor1Type3Code```: If multiple type/role codes are specified for Actor1, this returns the third code
 - The fields above are repeated for ```Actor2```
-- ```EventCode```:  This is the raw CAMEO action code describing the action that Actor1 performed upon Actor2.
+- ```EventCode```:  This is the raw CAMEO action code describing the action that Actor1 performed upon Actor2
 - ```GoldsteinScale```: a numeric score from -10 to +10, capturing the theoretical potential impact that type of event will have on the stability of a country
 - ```NumMentions```: This is the total number of mentions of this event across all source documents during the 15 minute update in which it was first seen
 - ```NumSources```: This is the total number of information sources containing one or more mentions of this event during the 15 minute update in which it was first seen.
@@ -75,12 +75,12 @@ We will use the following fields of the
 - ```MentionIdentifier```: Unique external identifier for the source document, useful to link directly with the GKG
 
 To be able to filter the dataset and keep only the environment-related events we keep the items in GKG that contains one of the following tag in their V1THEMES field:
-```ENV_[*]```: Everything related to environment (from biofuels to overfishing, solar energy, nuclear energy, deforestation...).
-```SELF_IDENTIFIED_ENVIRON_DISASTER```: Articles where the text explicitly mentions "ecological disaster", "environmental catastrophe", etc.
-```NATURAL_DISASTER```: From floods to coldsnaps, wildfires to tornadoes.
-```MOVEMENT_ENVIRONMENTAL```: Environmental movements.
+- ```ENV_[*]```: Everything related to environment (from biofuels to overfishing, solar energy, nuclear energy, deforestation...)
+- ```SELF_IDENTIFIED_ENVIRON_DISASTER```: Articles where the text explicitly mentions "ecological disaster", "environmental catastrophe", etc
+- ```NATURAL_DISASTER```: From floods to coldsnaps, wildfires to tornadoes
+- ```MOVEMENT_ENVIRONMENTAL```: Environmental movements
 
-We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then we join the Mention table with GdeltEvent on GLOBALEVENTID to keep the environment events.
+We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then we join the Mention table with GdeltEvent on GLOBALEVENTID to keep the environment-related events.
 
 # A list of internal milestones up until project milestone 2
 |Week #|Internal Milestone|
