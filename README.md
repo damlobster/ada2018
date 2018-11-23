@@ -1,10 +1,11 @@
 
+
 [Updated 23.11.2018]
 
 # **Environment news in the world**
 
 # Abstract
-Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media news plays an important role in reporting environmental news to population, being for reporting natural disaster that causes important damage to population, or revealing the douteuse practice of a company, politic views on environment etc and can have an impact at a large scale...
+Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media plays an important role in reporting environmental news to population, being for reporting natural disaster that causes important damage to population, or revealing the douteuse practice of a company, politic views on environment etc and can have an impact at a large scale...
 
 We would like to analyse the environment news coverage in the world. 
 
@@ -14,13 +15,13 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 
 
 # Research questions
-- What is the evolution of the worldwide news coverage (number of articles and tone) of environmental related events?
+- What is the evolution of the worldwide news coverage (proportion and tone) of environment-related events?
+- What is the proportion and the tone of environment-related news in European countries?
+- What are the major actors (person, organisation, country) involved in environment-related events?
+- How strong is the link between them?
 - What are the major recent events related to environment?
-- How much place is taking environmental related news in European countries and worldwide (in space and time)?
 - What is the attention of regions of the world on the disasters occurring in a country?
-- What is the link between the actors of a particular event in the world?
 - Is there any relation between the economy and the news coverage of environment in countries?
-
 
 
 # Dataset
