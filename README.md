@@ -83,10 +83,3 @@ To be able to filter the dataset and keep only the environment-related events we
 - ```MOVEMENT_ENVIRONMENTAL```: Environmental movements
 
 We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then we join the Mention table with GdeltEvent on GLOBALEVENTID to keep the environment-related events.
-
-# A list of internal milestones up until project milestone 2
-|Week #|Internal Milestone|
-|---|---|
-|1|Discussion to refine the scope of the project. Extension of the subject to include all environmental related events (not only scandals). Redefine research questions based on TA's remarks and existing literature. Set up the tools to work on the cluster.
-|2|Filter the dataset to isolate events related to environment and extract useful fields from it.|
-|3|Extract relevant information from the filtered dataset to answer each of our research questions. Start a first analysis and set up the pipeline to answer the questions.|
