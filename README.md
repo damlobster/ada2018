@@ -41,6 +41,7 @@ We will use the following fields of the
 - ```V1COUNTS```: This is the list of Counts found in this document (eg. 3000 dead fishes)
 - ```V1THEMES```: This is the list of all Themes found in the document
 - ```V1LOCATIONS```: This is a list of all locations found in the text
+- ```V1PERSONS```: This is a list of all person names found in the text
 - ```V1ORGANIZATIONS```: This is the list of all company and organization names found in the text
 - ```V1.5TONE```/Tone: This is the average “tone” of the document as a whole
 
