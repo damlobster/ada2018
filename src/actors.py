@@ -31,4 +31,4 @@ query = """
 
 res_df = spark.sql(query)
 
-res_df.write.mode('overwrite').parquet(config.OUTPUT_PATH+"actors_occurences.parquet")
+res_df.repartition(1).write.mode('overwrite').parquet(config.OUTPUT_PATH+"actors_occurences.parquet")
