@@ -15,13 +15,18 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 
 
 # Research questions
-- What is the evolution of the worldwide news coverage (proportion and tone) of environment-related events?
-- What is the proportion and the tone of environment-related news in European countries?
+***Temporal Approach***
+- What is the evolution in time of the worldwide news coverage (proportion and tone) of environment-related events?
+- What are the major recent events related to environment?
+***Spatial Approach***
+- What is the proportion and the tone of environment-related news by countries? (Case-Study of European countries)
+- Is there any relation between the economy and the news coverage of environment in countries?
+- What is the attention of regions of the world on the disasters occurring in a specific country?
+***Major actors***
 - What are the major actors (person, organisation, country) involved in environment-related events?
 - How strong is the link between them?
-- What are the major recent events related to environment?
-- What is the attention of regions of the world on the disasters occurring in a country?
-- Is there any relation between the economy and the news coverage of environment in countries?
+
+
 
 
 # Dataset
