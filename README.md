@@ -9,9 +9,9 @@ Concerns about environmental degradation is taking a growing place in the collec
 
 We would like to analyse the environment news coverage in the world. 
 
-More precisely, we would like to see what are the main actors implied in environment, how they are connected to each other .
+We would like to see what are the main actors implied in environment, how they are connected to each other, what the general impression is, how a country attracts attention from the world on this matter.
 
-For this analysis, we are going to use the GDELT v2.0 dataset which contains information from the world's news media.
+For this analysis, we are going to use the GDELT v2.0 dataset which contains information from the world's news media. More precisely, we will make high use of two metrics from GDELT, the number of mentions and the tone.
 
 
 # Research questions
@@ -40,7 +40,7 @@ Find whether there is a relation ship between the previous metrics (proportion o
 
 - What is the attention of a specific region of the world on the events occuring in the world?
 
-For a given region A, we would like to visualize the attention of the region on the events occuring in the entire world. This will be a  flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes.
+For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a  flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes.
 
 ***Major actors***
 - What are the major actors (person, organisation, country) involved in environment-related events?
