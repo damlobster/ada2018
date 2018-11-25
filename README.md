@@ -29,7 +29,7 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 - Is there any relationship between the economy and the news coverage of environment in countries? Find whether there is a relationship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country.
 
 
-- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes.
+- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes ([link](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/)).
 
 #  Files in this repo
 
