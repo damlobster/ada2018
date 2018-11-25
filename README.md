@@ -29,7 +29,7 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 - Is there any relationship between the economy and the news coverage of environment in countries? Find whether there is a relationship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country.
 
 
-- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes ([link](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/)).
+- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an [external dataset](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/) based on GKG which tells us from which country a web domain comes. This dataset geolocates approximatly 190'000 domains with the associated country name and its FIPS10-4 code.
 
 #  Files in this repo
 
@@ -104,8 +104,3 @@ To be able to filter the dataset and keep only the environment-related events we
 - ```MOVEMENT_ENVIRONMENTAL```: Environmental movements
 
 We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then we join the Mention table with GdeltEvent on GLOBALEVENTID to keep the environment-related events.
-
-### Geolocalization of web domain names
-We found a dataset that geolocate approximatly 190'000 domain with the associated country name and its FIPS10-4 code, it is built from the GKG ([link](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/)).
-
-This dataset allows us to know from which country an article was written.
