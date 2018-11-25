@@ -38,9 +38,9 @@ We would like to see the evolution in time of the tone for each country and stud
 Find whether there is a relation ship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country
 
 
-- What is the attention of regions of the world on the disasters occurring in a specific region?
+- What is the attention of a specific region of the world on the events occuring in the world?
 
-For a given region A, we would like to visualize the attention of the others regions on the region A. That is, we want to study whether the news coverage of enviroment issues is local.
+For a given region A, we would like to visualize the attention of the region on the events occuring in the entire world. This will be a  flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes.
 
 ***Major actors***
 - What are the major actors (person, organisation, country) involved in environment-related events?
@@ -52,6 +52,15 @@ Find the persons, organisations and countries that are related to enviroment iss
 
 Study the link between these actors. Are they linked together ? Is there a type of actor that is more predominant than others ?
 
+
+# Files in this repo
+The Milestone2.pynb explains in detail the pipeline adopted in this project. We invite the reader to look at this notebook which aggregates all the information he/she will need. In case, we provide here an architecture of the repo:
+
+- src/cluster: all the files used to create the parquets (that are used in all the other folders of src) on the cluster
+- src/tone: local computations related to the average tone in the world
+- src/actors: local computations related to the findings of the major actors in the world
+- src/mentions_counts: local computations related to the proportion of mentions related to the environment in the world (time, and by country)
+- src/co-occuring actors: temporay files to this date
 
 # Dataset
 We are going to use the GDELT (Global Database for Events, Languages and Tones) 2.0 dataset from the cluster which contains open data from the world's news media with local events, reactions and emotions of even the most remote corners of the world from 2015 to 2017. It is based on news reports from a variety of international news sources encoded using the Tabari system for events.
