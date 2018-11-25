@@ -16,19 +16,30 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 
 # Research questions
 ***Temporal Approach***
-- What is the evolution in time of the worldwide news coverage (proportion and tone) of environment-related events?
+- What is the evolution in time of the worldwide news coverage (proportion of mentions and tone) of environment-related events?
+Evolution in time of the proportion of mentions related to environment (over all mentions) in the world
+Evolution in time of the tone of environment-related news in the world
+
 - What are the major recent events related to environment?
+Find the events related to environment that have attracted the most attention on the world scene 
+
 
 ***Spatial Approach***
-- What is the proportion and the tone of environment-related news by countries? (Case-Study of European countries)
+- What is the proportion of mentions and the tone of environment-related news by countries? (Case-Study of European countries)
+We would like to see the evolution in time of the tone for each country and study the proportion of mentions related to environment that concerns each country.
+
 - Is there any relation between the economy and the news coverage of environment in countries?
-- What is the attention of regions of the world on the disasters occurring in a specific country?
+Find whether there is a relation ship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country
+
+- What is the attention of regions of the world on the disasters occurring in a specific region?
+For a given region A, we would like to visualize the attention of the others regions on the region A. That is, we want to study whether the news coverage of enviroment issues is local.
 
 ***Major actors***
 - What are the major actors (person, organisation, country) involved in environment-related events?
+Find the persons, organisations and countries that are related to enviroment issues the most
+
 - How strong is the link between them?
-
-
+Study the link between these actors. Are they linked together ? Is there a type of actor that is more predominant than others ?
 
 
 # Dataset
