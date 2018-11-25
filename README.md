@@ -54,8 +54,9 @@ Study the link between these actors. Are they linked together ? Is there a type 
 
 
 # Files in this repo
-The Milestone2.pynb explains in detail the pipeline adopted in this project. We invite the reader to look at this notebook which aggregates all the information he/she will need. In case, we provide here an architecture of the repo:
+The [Milestone2.pynb](src/Milestone2.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need. 
 
+In case, we provide here an architecture of the repo:
 - src/cluster: all the files used to create the parquets (that are used in all the other folders of src) on the cluster
 - src/tone: local computations related to the average tone in the world
 - src/actors: local computations related to the findings of the major actors in the world
