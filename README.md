@@ -57,11 +57,11 @@ Study the link between these actors. Are they linked together ? Is there a type 
 The [Milestone2.pynb](src/Milestone2.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need. 
 
 In case, we provide here an architecture of the repo:
-- src/cluster: all the files used to create the parquets (that are used in all the other folders of src) on the cluster
-- src/tone: local computations related to the average tone in the world
-- src/actors: local computations related to the findings of the major actors in the world
-- src/mentions_counts: local computations related to the proportion of mentions related to the environment in the world (time, and by country)
-- src/co-occuring actors: temporay files to this date
+- [src/cluster](src/cluster): all the files used to create the parquets (that are used in all the other folders of src) on the cluster
+- [src/tone](src/tone): local computations related to the average tone in the world
+- [src/actors](src/actors): local computations related to the findings of the major actors in the world
+- [src/mentions_counts](src/mentions_counts): local computations related to the proportion of mentions related to the environment in the world (time, and by country)
+- [src/co-occuring_actors](src/co-occuring_actors): temporay files to this date
 
 # Dataset
 We are going to use the GDELT (Global Database for Events, Languages and Tones) 2.0 dataset from the cluster which contains open data from the world's news media with local events, reactions and emotions of even the most remote corners of the world from 2015 to 2017. It is based on news reports from a variety of international news sources encoded using the Tabari system for events.
