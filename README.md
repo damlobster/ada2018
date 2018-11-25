@@ -1,74 +1,56 @@
-﻿
-
-[Updated 23.11.2018]
+[Updated 25.11.2018]
 
 # **Environment news in the world**
 
 # Abstract
-Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media plays an important role in reporting environmental news to population, being for reporting natural disaster that causes important damage to population, or revealing the douteuse practice of a company, politic views on environment etc and can have an impact at a large scale...
+Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media plays an important role in reporting environmental news to population, whether it is for reporting natural disasters that cause important damage to population and environment, or for exposing the suspicious practice of a company, political actions dealing with environment etc...
 
-We would like to analyse the environment news coverage in the world. 
-
-We would like to see what are the main actors implied in environment, how they are connected to each other, what the general impression is, how a country attracts attention from the world on this matter.
+We would like to analyse the environment news coverage in the world. First, we would like to see what are the main reported actors implied in environment-related event and how they are connected to each other. Then, we would like to see what is the distribution and the tone of environmental news from a temporal and spatial view. Also it could be interesting to see what are the major events that took place recently and focus on one of these major events.
 
 For this analysis, we are going to use the GDELT v2.0 dataset which contains information from the world's news media. More precisely, we will make high use of two metrics from GDELT, the number of mentions and the tone.
 
 
 # Research questions
-***Temporal Approach***
-- What is the evolution in time of the worldwide news coverage (proportion of mentions and tone) of environment-related events?
-
-Evolution in time of the proportion of mentions related to environment (over all mentions) in the world
-
-Evolution in time of the tone of environment-related news in the world
-
-- What are the major recent events related to environment?
-
-Find the events related to environment that have attracted the most attention on the world scene 
-
-
-***Spatial Approach***
-- What is the proportion of mentions and the tone of environment-related news by countries? (Case-Study of European countries)
-
-We would like to see the evolution in time of the tone for each country and study the proportion of mentions related to environment that concerns each country.
-
-
-- Is there any relation between the economy and the news coverage of environment in countries?
-
-Find whether there is a relation ship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country
-
-
-- What is the attention of a specific region of the world on the events occuring in the world?
-
-For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a  flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes.
-
 ***Major actors***
 - What are the major actors (person, organisation, country) involved in environment-related events?
 
-Find the persons, organisations and countries that are related to enviroment issues the most
+- How strong is the link between them? Is there a type of actor that is more predominant than others?
+
+***Temporal Approach***
+- What is the evolution in time of the worldwide news coverage (proportion of mentions and tone) of environment-related events?
+
+- What are the major recent events related to environment?
 
 
-- How strong is the link between them?
+***Spatial Approach***
+- What is the proportion of mentions and the tone used for environment-related event happening in countries (case-study of European countries)?
 
-Study the link between these actors. Are they linked together ? Is there a type of actor that is more predominant than others ?
+
+- Is there any relationship between the economy and the news coverage of environment in countries? Find whether there is a relationship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country.
 
 
-# Files in this repo
-The [Milestone2.pynb](src/Milestone2.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need. 
+- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an external dataset based on GKG which tells us from which country a web domain comes.
+
+#  Files in this repo
+
+The [Milestone2.pynb](src/Milestone2.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need.
 
 In case, we provide here an architecture of the repo:
+
 - [src/cluster](src/cluster): all the files used to create the parquets (that are used in all the other folders of src) on the cluster
+
 - [src/tone](src/tone): local computations related to the average tone in the world
+
 - [src/actors](src/actors): local computations related to the findings of the major actors in the world
+
 - [src/mentions_counts](src/mentions_counts): local computations related to the proportion of mentions related to the environment in the world (time, and by country)
+
 - [src/co-occuring_actors](src/co-occuring_actors): temporay files to this date
 
 # Dataset
 We are going to use the GDELT (Global Database for Events, Languages and Tones) 2.0 dataset from the cluster which contains open data from the world's news media with local events, reactions and emotions of even the most remote corners of the world from 2015 to 2017. It is based on news reports from a variety of international news sources encoded using the Tabari system for events.
 
 The data has been well parsed and the dataset is codified with [CAMEO](https://www.gdeltproject.org/data/documentation/CAMEO.Manual.1.1b3.pdf) which will enable us to make some precise analysis.
-
-GDELT has highly been used to make maps and link graphs according to the several examples shown by the official site. Therefore, we would like to have a map of the world, a heatmap of the ecological scandal according to their importance. Then we could select one big scandal and see the links with other events in the world. Finally, we can see the repercussions of this scandal on the country with visual facts about the economy, pollution etc… A general analysis of these repercussions all over the world will be available.
 
 We will use the following fields of the 
 
