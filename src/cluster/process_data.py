@@ -15,7 +15,7 @@ import load_datasets
 
 spark = SparkSession.builder.getOrCreate()
 
-step = "EVENTS"
+step = "GKG"
 
 # We load all the gkg files
 if step == "GKG":
@@ -24,24 +24,24 @@ if step == "GKG":
     else:
         gkg_df = load_gkg(spark, "[0-9]*.gkg.csv", small=True)
     gkg_df.write.mode('overwrite').parquet(
-        config.OUTPUT_PATH+"/gkg_small.parquet")
+        config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet")
 
 # We load all the mentions files and joined to gkg
 elif step == "MENTIONS":
-    gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_small.parquet").selectExpr(
+    gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").selectExpr(
         "V2DocumentIdentifier as MentionIdentifier")
     mentions_df = load_mentions(
         spark, "[0-9]*.mentions.CSV").join(gkg_df.distinct(), ["MentionIdentifier"])
     mentions_df.printSchema()
     mentions_df.write.mode('overwrite').parquet(
-        config.OUTPUT_PATH+"/mentions.parquet")
+        config.OUTPUT_PATH+"/mentions_withtheme_nonexploded.parquet")
 
 # We load all the events files and joined to mentions
 else:
     mentions_df = spark.read.parquet(
-        config.OUTPUT_PATH+"/mentions.parquet").select("GLOBALEVENTID")
+        config.OUTPUT_PATH+"/mentions_withtheme_nonexploded.parquet").select("GLOBALEVENTID")
     events_df = load_datasets.load_events(
         spark, "[0-9]*.export.CSV").join(mentions_df.distinct(), ["GLOBALEVENTID"])
     events_df.printSchema()
     events_df.write.mode('overwrite').parquet(
-        config.OUTPUT_PATH+"/events.parquet")
+        config.OUTPUT_PATH+"/events_withtheme_nonexploded.parquet")

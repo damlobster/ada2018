@@ -30,10 +30,11 @@ def load_gkg(sc, file, small=True):
     gkg_df = gkg_df .withColumn("V2DATE", F.to_timestamp(gkg_df.V2DATE, "yyyyMMddHHmmss"))\
                     .filter(" OR ".join(['V1Themes like "%{}%"'.format(k) for k in ENV_TAGS]))
     gkg_df = gkg_df.select("GKGRECORDID", "V2DATE", "V2SourceCommonName", "V2DocumentIdentifier",
-                           "V1Counts", "V1Themes", "V1Locations", "V1Organizations", "V1Tone")
+                           "V1Counts", "V1Themes", "V1Locations", "V1Persons", "V1Organizations", "V1Tone")
     res = None
     if small:
-        res = gkg_df.drop("V1Themes")
+        # res = gkg_df.drop("V1Themes")
+        res = gkg_df
     else:
         tmp = gkg_df.select("GKGRECORDID", "V1Themes").withColumn(
             "T", F.explode(F.split(gkg_df.V1Themes, ";"))).select("GKGRECORDID", "T")
@@ -64,7 +65,7 @@ def load_events(sc, file):
                            "Actor1Type1Code", "Actor1Type2Code", "Actor1Type3Code",
                            "Actor2Code", "Actor2Name", "Actor2CountryCode",
                            "Actor2Type1Code", "Actor2Type2Code", "Actor2Type3Code",
-                           "IsRootEvent", "EventCode", "GoldsteinScale",
+                           "EventCode", "GoldsteinScale",
                            "NumMentions", "NumSources", "NumArticles", "AvgTone", "Actor1Geo_Type", "Actor1Geo_FullName",
                            "Actor1Geo_CountryCode", "Actor2Geo_Type", "Actor2Geo_FullName", "Actor2Geo_CountryCode",
                            "ActionGeo_Type", "ActionGeo_FullName", "ActionGeo_CountryCode")
