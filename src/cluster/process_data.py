@@ -43,9 +43,9 @@ elif step == "MENTIONS":
 # We load all the events files and joined to mentions
 else:
     mentions_df = spark.read.parquet(
-        config.OUTPUT_PATH+"/mentions.parquet").select("GLOBALEVENTID")
+        config.OUTPUT_PATH+"/mentions_withtheme_nonexploded.parquet").select("GLOBALEVENTID")
     events_df = load_datasets.load_events(
         spark, "[0-9]*.export.CSV").join(mentions_df.distinct(), ["GLOBALEVENTID"])
     events_df.printSchema()
     events_df.write.mode('overwrite').parquet(
-        config.OUTPUT_PATH+"/events.parquet")
+        config.OUTPUT_PATH+"/events_withtheme_nonexploded.parquet")
