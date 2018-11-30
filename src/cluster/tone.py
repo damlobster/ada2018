@@ -33,10 +33,11 @@ mentions = mentions.select("MentionTimeDate","V1Tone")
 mentions.registerTempTable("mentions")
 # We compute the average tone for a given day, so we group by Day,Month,Year and we compute the mean of the tone
 query = """
-    SELECT DAY(MentionTimeDate) AS day, MONTH(MentionTimeDate) AS month, YEAR(MentionTimeDate) AS year, MEAN(V1Tone) as tone_mean
-    FROM mentions
-    GROUP BY DAY(MentionTimeDate), MONTH(MentionTimeDate), YEAR(MentionTimeDate)"""
+    SELECT e.STATE AS state, DAY(m.MentionTimeDate) AS day, MONTH(m.MentionTimeDate) AS month, YEAR(m.MentionTimeDate) AS year, MEAN(m.V1Tone) as tone_mean
+    FROM mentions m, (SELECT DISTINCT GLOBALEVENTID, explode(array(Actor1Geo_CountryCode, Actor2Geo_CountryCode)) as STATE FROM events) e
+    WHERE m.GLOBALEVENTID=e.GLOBALEVENTID
+    GROUP BY e.STATE, DAY(MentionTimeDate), MONTH(MentionTimeDate), YEAR(MentionTimeDate)"""
 res = spark.sql(query)
 
 # We write a parquet, which is small enough to treat locally with pandas (see the file in tone/tone_mean.ipynb )
-res.write.mode('overwrite').parquet(config.OUTPUT_PATH+"tone_mean_count.parquet")
+res.repartion(1).write.mode('overwrite').parquet(config.OUTPUT_PATH+"tone_mean_count.parquet")
