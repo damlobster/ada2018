@@ -12,8 +12,7 @@ GDELT_PATH = "/datasets/gdeltv2/"
 OUTPUT_PATH = "./data/"
 
 # For practial purpose
-not_cluster = socket.gethostbyaddr(socket.gethostname())[
-    0] != 'iccluster028.iccluster.epfl.ch'
+not_cluster = socket.gethostbyaddr(socket.gethostname())[0] != 'iccluster028.iccluster.epfl.ch'
 
 #! spark initialisation
 if not_cluster:
