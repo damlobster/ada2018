@@ -57,7 +57,7 @@ We will use the following fields of the
 **[GlobalKnowledgeGraph (GKG) V2.1 :](http://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.1.pdf)**
 
 - ```GKGRECORDID```: unique identifier of the GKG record
-- ```V2.1DATE```: This is the date in YYYYMMDD format on which the news media used to construct this GKG file was published
+- ```V2.1DATE```: This is the date in YYYYMMDDHHMMSS format on which the news media used to construct this GKG file was published
 - ```V2SOURCECOMMONNAME```: Identifier of the source of the document
 - ```V2DOCUMENTIDENTIFIER```: Unique external identifier for the source document, useful to link directly with the Mentions table of GdeltEventDatabase
 - ```V1COUNTS```: This is the list of Counts found in this document (eg. 3000 dead fishes)
