@@ -12,23 +12,41 @@ from pyspark.sql.types import *
 
 spark = SparkSession.builder.getOrCreate()
 
-events_act1_df = spark.read.parquet(config.OUTPUT_PATH+"/events.parquet").select("GLOBALEVENTID", "Actor1Name", "Actor1Type1Code", "Actor1Type2Code", "Actor1Type3Code")
-events_act2_df = spark.read.parquet(config.OUTPUT_PATH+"/events.parquet").select("GLOBALEVENTID", "Actor2Name", "Actor2Type1Code", "Actor2Type2Code", "Actor2Type3Code")
+persons_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").select("GKGRECORDID", "V1Persons")
+organizations_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").select("GKGRECORDID", "V1Organizations")
+locations_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").select("GKGRECORDID", "V1Locations")
 
-events_act2_df = events_act2_df.withColumnRenamed("Actor2Name", "Actor1Name")
-events_act2_df = events_act2_df.withColumnRenamed("Actor2Type1Code", "Actor1Type1Code")
-events_act2_df = events_act2_df.withColumnRenamed("Actor2Type2Code", "Actor1Type2Code")
-events_act2_df = events_act2_df.withColumnRenamed("Actor2Type3Code", "Actor1Type3Code")
+persons_df = persons_df.withColumn("Actor", F.explode(F.split(persons_df.V1Persons, ";")))
+organizations_df = organizations_df.withColumn("Actor", F.explode(F.split(organizations_df.V1Organizations, ";")))
+locations_df = locations_df.withColumn("Actor", F.explode(F.split(locations_df.V1Locations, ";")))
 
-events_df = events_act1_df.union(events_act2_df)
-events_df.createOrReplaceTempView("events")
+persons_df.createOrReplaceTempView("persons")
+organizations_df.createOrReplaceTempView("organizations")
+locations_df.createOrReplaceTempView("locations")
 
-query = """
-  SELECT COUNT(GLOBALEVENTID) as Count, Actor1Name, Actor1Type1Code, Actor1Type2Code, Actor1Type3Code
-  FROM events
-  GROUP BY Actor1Name, Actor1Type1Code, Actor1Type2Code, Actor1Type3Code
-  ORDER BY COUNT(GLOBALEVENTID) DESC"""
+query_persons = """
+  SELECT COUNT(GKGRECORDID) as Count, Actor
+  FROM persons
+  GROUP BY Actor"""
 
-res_df = spark.sql(query)
+query_organizations = """
+  SELECT COUNT(GKGRECORDID) as Count, Actor
+  FROM organizations
+  GROUP BY Actor"""
 
-res_df.repartition(1).write.mode('overwrite').parquet(config.OUTPUT_PATH+"actors_occurences.parquet")
+query_locations = """
+  SELECT COUNT(GKGRECORDID) as Count, Actor
+  FROM locations
+  GROUP BY Actor"""
+
+res_persons = spark.sql(query_persons)
+res_organizations = spark.sql(query_organizations)
+res_locations = spark.sql(query_locations)
+
+res_persons = res_persons.sort('Count', ascending=False).limit(10000)
+res_organizations = res_organizations.sort('Count', ascending=False).limit(10000)
+res_locations = res_locations.sort('Count', ascending=False).limit(10000)
+
+res_persons.repartition(1).write.mode('overwrite').csv(config.OUTPUT_PATH+"persons_occurences.csv", header=True, sep=",")
+res_organizations.repartition(1).write.mode('overwrite').csv(config.OUTPUT_PATH+"organizations_occurences.csv", header=True, sep=",")
+res_locations.repartition(1).write.mode('overwrite').csv(config.OUTPUT_PATH+"locations_occurences.csv", header=True, sep=",")
