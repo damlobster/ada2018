@@ -1,5 +1,3 @@
-import sys
-import os
 import pyspark
 import datetime
 from pyspark.sql import *
@@ -22,7 +20,6 @@ def load_gkg(sc, file, small=True):
     Returns:
         DataFrame -- the result dataframe
     """
-
     ENV_TAGS = ["ENV_", "SELF_IDENTIFIED_ENVIRON_DISASTER",
                 "NATURAL_DISASTER", "MOVEMENT_ENVIRONMENTAL"]
     gkg_df = sc.read.csv(config.GDELT_PATH + file, sep="\t",
@@ -56,7 +53,6 @@ def load_events(sc, file):
     Returns:
         DataFrame -- the result dataframe
     """
-
     events = sc.read.csv(config.GDELT_PATH + file, sep="\t", header=False,
                          schema=config.EVENTS_SCHEMA, mode="DROPMALFORMED")
     events = events.withColumn(
@@ -82,7 +78,6 @@ def load_mentions(sc, file):
     Returns:
         DataFrame -- the result dataframe
     """
-
     mentions_df = sc.read.csv(config.GDELT_PATH + file, sep="\t",
                               header=False, schema=config.MENTIONS_SCHEMA, mode="DROPMALFORMED")
     mentions_df = mentions_df   .select("GLOBALEVENTID", "EventTimeDate", "MentionTimeDate", "MentionSourceName", "MentionIdentifier") \
@@ -101,6 +96,7 @@ def get_from_hadoop(from_, to_=None):
     Returns:
         DataFrame -- the result dataframe
     """
+    import os
     if to_ is None:
         to_ = "data/"+from_.split("/")[-1]
     cmd = "hadoop fs -get "+from_+" "+to_
