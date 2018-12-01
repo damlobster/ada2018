@@ -1,2 +1,4 @@
-*.pyc
-src/cluster/username.py
+**/*.pyc
+cluster/username.py
+cluster/dependencies.zip
+

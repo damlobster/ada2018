@@ -33,7 +33,7 @@ if step == "GKG":
 # We load all the mentions files and joined to gkg
 elif step == "MENTIONS":
     gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_domain.parquet").selectExpr(
-        "V2DocumentIdentifier as MentionIdentifier, DOMAIN_FIPS, DOMAIN_COUNTRY")
+        "V2DocumentIdentifier as MentionIdentifier", "DOMAIN_FIPS", "DOMAIN_COUNTRY")
     mentions_df = load_mentions(
         spark, "[0-9]*.mentions.CSV").join(gkg_df.distinct(), ["MentionIdentifier"])
     mentions_df.printSchema()

@@ -21,7 +21,7 @@ spark = SparkSession.builder.getOrCreate()
 
 events = load_events(spark, "[0-9]*.export.CSV")
 mentions = load_mentions(spark, "[0-9]*.mentions.CSV")
-gkg = spark.read.parquet(config.OUTPUT_PATH+"/gkg_small.parquet")
+gkg = spark.read.parquet(config.OUTPUT_PATH+"/gkg_domain.parquet")
 
 events.createOrReplaceTempView("events")
 mentions.createOrReplaceTempView("mentions")
