@@ -4,32 +4,13 @@ This file contains the name of the columns, the themes that we have kept as well
 
 from pyspark.sql.types import *
 import pyspark
-import os
-import socket
+import username
 
 # Some general paths
 GDELT_PATH = "/datasets/gdeltv2/"
-OUTPUT_PATH = "./data/"
 
-# For practial purpose
-not_cluster = socket.gethostbyaddr(socket.gethostname())[0] != 'iccluster028.iccluster.epfl.ch'
-
-#! spark initialisation
-if not_cluster:
-    print("Not in cluster")
-    os.environ["PYTHONIOENCODING"] = "utf8"
-    import findspark
-    findspark.init()
-    # override HADOOP path if not in cluster
-    GDELT_PATH = OUTPUT_PATH+"gdeltv2/"
-else:
-    import pwd
-    user = pwd.getpwuid(os.getuid())[0]
-    OUTPUT_PATH = "/user/"+user+"/ada2018/data/"
-    print("Output path = " + OUTPUT_PATH)
-
-#! end spark init
-
+OUTPUT_PATH = "/user/"+username.user+"/ada2018/data/"
+print("Output path = " + OUTPUT_PATH)
 
 # Themes related to environment
 ENV_KEYS = "ENV_CLIMATECHANGE,ENV_CARBONCAPTURE,ENV_SOLAR,ENV_NUCLEARPOWER,ENV_HYDRO,\
