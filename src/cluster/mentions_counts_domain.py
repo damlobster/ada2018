@@ -22,7 +22,7 @@ mentions_global = load_mentions(spark, "[0-9]*.mentions.CSV")
 print("Mentions loaded")
 
 geoloc_df = spark.read.csv(config.OUTPUT_PATH + "GDELT_DOMAINS_BY_COUNTRY.TXT", sep="\t",header=True, mode="DROPMALFORMED")\
-    .selectExpr("DOMAIN as MentionSourceName", "FIPS AS DOMAIN_FIPS", "COUNTRY AS DOMAIN_COUNTRY")
+    .selectExpr("DOMAIN as MentionSourceName", "FIPS AS STATE", "COUNTRY AS DOMAIN_COUNTRY")
 print("domains loaded")
 
 mentions_global = mentions_global.join(geoloc_df, ["MentionSourceName"], "left_outer")
@@ -37,14 +37,14 @@ def get_global():
     """Get the total counts of mentions by states and days
 
     Returns:
-        [DataFrame] -- a dataframe with columns: [STATE, Y, M, D, GLOBAL_COUNT]
+        [DataFrame] -- a dataframe with columns: [STATE, YEAR, MONTH, DAY, GLOBAL_COUNT]
     """
     qry2 = "\
-    SELECT DOMAIN_FIPS, DOMAIN_COUNTRY, \
-        YEAR(m.MentionTimeDate) AS Y, MONTH(m.MentionTimeDate) AS M, DAY(m.MentionTimeDate) AS D, \
+    SELECT STATE, DOMAIN_COUNTRY, \
+        YEAR(m.MentionTimeDate) AS YEAR, MONTH(m.MentionTimeDate) AS MONTH, DAY(m.MentionTimeDate) AS DAY, \
         COUNT(m.MentionIdentifier) AS GLOBAL_COUNT \
     FROM mentions_global AS m \
-    GROUP BY DOMAIN_FIPS, DOMAIN_COUNTRY, MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate)"
+    GROUP BY STATE, DOMAIN_COUNTRY, MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate)"
     df = spark.sql(qry2)
     return df
 
@@ -53,22 +53,22 @@ def get_env():
     """Get the total counts of mentions related to envrionment by states and days
 
     Returns:
-        [DataFrame] -- a dataframe with columns: [STATE, Y, M, D, COUNT]
+        [DataFrame] -- a dataframe with columns: [STATE, YEAR, MONTH, DAY, COUNT]
     """
 
     qry2 = "\
-    SELECT DOMAIN_FIPS, DOMAIN_COUNTRY, \
-        YEAR(m.MentionTimeDate) AS Y, MONTH(m.MentionTimeDate) AS M, DAY(m.MentionTimeDate) AS D, \
+    SELECT STATE, DOMAIN_COUNTRY, \
+        YEAR(m.MentionTimeDate) AS YEAR, MONTH(m.MentionTimeDate) AS MONTH, DAY(m.MentionTimeDate) AS DAY, \
         COUNT(m.MentionIdentifier) as ENV_COUNT \
     FROM mentions_global m, (SELECT DISTINCT V2DocumentIdentifier FROM gkg) g \
     WHERE m.MentionIdentifier=g.V2DocumentIdentifier \
-    GROUP BY MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate), m.DOMAIN_FIPS, m.DOMAIN_COUNTRY"
+    GROUP BY MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate), m.STATE, m.DOMAIN_COUNTRY"
     df = spark.sql(qry2)
     return df
 
 
 # Get the counts and join them to be able afterward to compute the ratio
-joined = get_global().join(get_env(), ["DOMAIN_FIPS", "DOMAIN_COUNTRY", "Y", "M", "D"], "left_outer")
+joined = get_global().join(get_env(), ["STATE", "DOMAIN_COUNTRY", "YEAR", "MONTH", "DAY"], "left_outer")
 print("Results joined")
 
 joined.repartition(1).write.mode('overwrite').csv(
