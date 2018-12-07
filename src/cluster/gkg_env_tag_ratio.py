@@ -16,8 +16,8 @@ ENV_TAGS = ["ENV_", "SELF_IDENTIFIED_ENVIRON_DISASTER",
 files = "[0-9]*.gkg.csv"
 spark = SparkSession.builder.getOrCreate()
 
-extract = True
-if extract:
+step = "none"
+if step=="extract":
     gkg_df = spark.read.csv(config.GDELT_PATH + files, sep="\t",
                             header=False, schema=config.GKG_SCHEMA, mode="DROPMALFORMED")
     print("Read ok")
@@ -42,6 +42,10 @@ if extract:
     res = spark.sql(query)
     res.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg_records_env_tags_ratios_trial_heading.parquet")
     res.show(1000)
+elif step == "join":
+    gkg_ids = spark.read.parquet(config.OUTPUT_PATH+"/gkg_records_env_tags_ratios_trial_heading.parquet")
+    gkg = spark.read.parquet(config.OUTPUT_PATH+"/gkg_small.parquet")
+    filtered = gkg.join(gkg_ids, ["GKGRECORDID"])
+    filtered.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg_filtered_5themes.parquet")
 else:
-    gkg = spark.read.parquet(config.OUTPUT_PATH+"/gkg_records_env_tags_ratios.parquet")
-    gkg.selectExpr("ENV/ALL as ratio").repartition(1).write.csv(config.OUTPUT_PATH + "/data/ratio.csv")
+    pass
