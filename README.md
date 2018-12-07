@@ -113,7 +113,7 @@ Firstly, for the flip point of our spatial approach, that is to see how a countr
 Then, we found some key information on countries to help us find any correlation between environment events and well-known metrics about a country. 
 
 
-For the social development, we have used the [Human Development Index] (http://hdr.undp.org/en/content/human-development-index-hdi) which is a measure of achievement in key dimensions of human development, for instance a long and healthy life, or having a decent standard of living.
+For the social development, we have used the [Human Development Index](http://hdr.undp.org/en/content/human-development-index-hdi) which is a measure of achievement in key dimensions of human development, for instance a long and healthy life, or having a decent standard of living.
 
 
-Moreover, we have used the [Environmental performance index] (https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. Eventually, we have access to this general index which gives information about the ecological involvement of the country, but also to the used metrics among which is the GDP. We recall that GDP measures the economical status of the country.
+Moreover, we have used the [Environmental performance index](https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. Eventually, we have access to this general index which gives information about the ecological involvement of the country, but also to the used metrics among which is the GDP. We recall that GDP measures the economical status of the country.
