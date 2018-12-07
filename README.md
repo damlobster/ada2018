@@ -29,7 +29,7 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 - Is there any relationship between the economy and the news coverage of environment in countries? Find whether there is a relationship between the previous metrics (proportion of mention and tone) that characterizes the news coverage of environment and the economy of a country.
 
 
-- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country). For that, we will use an [external dataset](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/) based on GKG which tells us from which country a web domain comes from. This dataset geolocates approximately 190'000 domains with the associated country name and its FIPS10-4 code.
+- What is the attention of a specific region of the world on the events occuring in the world? For a given region, we would like to visualize the attention of this region on the events occuring in the entire world. This will be a flip point of view compared to the previous questions (where it was more about how the world sees a specific country).
 
 #  Files in this repo
 
@@ -104,3 +104,13 @@ To be able to filter the dataset and keep only the environment-related events we
 - ```MOVEMENT_ENVIRONMENTAL```: Environmental movements
 
 We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then we join the Mention table with GdeltEvent on GLOBALEVENTID to keep the environment-related events.
+
+# External Datasets
+We have used several external datatets to enhance our study on GDELT.
+
+Firstly, for the flip point of our spatial approach, that is to see how a country talks about the world, we have looked for a dataset that indicates us where a web domain comes from. Indeed, GDELT gives us the source of each document (V2SOURCE COMMONNAME, in particular the web domain. For that, we have used an [external dataset](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/). This dataset geolocates approximately 190'000 domains with the associated country name and its FIPS10-4 code.
+
+Then, we found some key information on countries to help us find any correlation between environment events and well-known metrics about a country. 
+For the social development, we have used the [Human Development Index] (http://hdr.undp.org/en/content/human-development-index-hdi) which is a measure of achievement in key dimensions of human development, for instance a long and healthy life, or having a decent standard of living.
+Moreover, we have used the [Environmental performance index] (https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. So we have access to this general index which gives information about the ecological involvement but also to the computed metrics among which is the GDP providing the economical status of the country.
+
