@@ -108,9 +108,12 @@ We then join with the Mention table on the V2DOCUMENTIDENTIFIER mention and then
 # External Datasets
 We have used several external datatets to enhance our study on GDELT.
 
-Firstly, for the flip point of our spatial approach, that is to see how a country talks about the world, we have looked for a dataset that indicates us where a web domain comes from. Indeed, GDELT gives us the source of each document (V2SOURCE COMMONNAME, in particular the web domain. For that, we have used an [external dataset](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/). This dataset geolocates approximately 190'000 domains with the associated country name and its FIPS10-4 code.
+Firstly, for the flip point of our spatial approach, that is to see how a country talks about the world, we have looked for a dataset that indicates us where a web domain comes from. Indeed, GDELT gives us the source of each document (V2SOURCE COMMONNAME, in particular the web domain. For that, we have used a [geographical map of the sources](https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources/). This dataset geolocates approximately 190'000 domains with the associated country name and its FIPS10-4 code.
 
 Then, we found some key information on countries to help us find any correlation between environment events and well-known metrics about a country. 
-For the social development, we have used the [Human Development Index] (http://hdr.undp.org/en/content/human-development-index-hdi) which is a measure of achievement in key dimensions of human development, for instance a long and healthy life, or having a decent standard of living.
-Moreover, we have used the [Environmental performance index] (https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. So we have access to this general index which gives information about the ecological involvement but also to the computed metrics among which is the GDP providing the economical status of the country.
 
+
+For the social development, we have used the [Human Development Index] (http://hdr.undp.org/en/content/human-development-index-hdi) which is a measure of achievement in key dimensions of human development, for instance a long and healthy life, or having a decent standard of living.
+
+
+Moreover, we have used the [Environmental performance index] (https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. Eventually, we have access to this general index which gives information about the ecological involvement of the country, but also to the used metrics among which is the GDP. We recall that GDP measures the economical status of the country.
