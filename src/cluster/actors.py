@@ -12,9 +12,9 @@ from pyspark.sql.types import *
 
 spark = SparkSession.builder.getOrCreate()
 
-persons_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").select("GKGRECORDID", "V1Persons")
-organizations_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").select("GKGRECORDID", "V1Organizations")
-locations_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_withtheme_nonexploded.parquet").select("GKGRECORDID", "V1Locations")
+persons_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_filtered_5themes.parquet").select("GKGRECORDID", "V1Persons")
+organizations_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_filtered_5themes.parquet").select("GKGRECORDID", "V1Organizations")
+locations_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_filtered_5themes.parquet").select("GKGRECORDID", "V1Locations")
 
 persons_df = persons_df.withColumn("Actor", F.explode(F.split(persons_df.V1Persons, ";")))
 organizations_df = organizations_df.withColumn("Actor", F.explode(F.split(organizations_df.V1Organizations, ";")))
