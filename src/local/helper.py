@@ -17,8 +17,11 @@ def load_countries(DATA_PATH):
     
     
 # Join "table" with the list of countries
-def join_countries(table, countries, states=None):
-    table = table.merge(countries[["Country", "FIPS"]], how="inner", left_on="STATE", right_on="FIPS")
+def join_countries(table, countries, states=None, with_iso=False):
+    fields = ["Country", "FIPS", "Region"]
+    if with_iso:
+        fields.append("ISO")
+    table = table.merge(countries[fields], how="inner", left_on="STATE", right_on="FIPS")
     table.dropna(inplace=True)
     table = table.assign(DATE=pd.to_datetime(table[["YEAR", "MONTH", "DAY"]]))
     #Filter by specific states
@@ -27,4 +30,3 @@ def join_countries(table, countries, states=None):
     #Drop not useful columns
     table.drop(columns=["FIPS", "YEAR", "MONTH", "DAY", "STATE"], inplace=True)
     return table
-
