@@ -25,9 +25,24 @@ mentions = mentions.select("MentionTimeDate","V1Tone")
 mentions.registerTempTable("mentions")
 
 query = """
-    SELECT DAY(MentionTimeDate) AS day, MONTH(MentionTimeDate) AS month, YEAR(MentionTimeDate) AS year, MEAN(V1Tone) as tone_mean
-    FROM mentions
-    GROUP BY DAY(MentionTimeDate), MONTH(MentionTimeDate), YEAR(MentionTimeDate)"""
+    SELECT DAY(MentionTimeDate) AS day, MONTH(MentionTimeDate) AS month, YEAR(MentionTimeDate) AS year, V1Tone as tone_mean
+    FROM mentions"""
 res = spark.sql(query)
 
-res.write.mode('overwrite').parquet(config.OUTPUT_PATH+"tone_mean_count.parquet")
+
+def find_median(values_list):
+    try:
+        median = np.median(values_list) #get the median of values in a list in each row
+        return round(float(median),2)
+    except Exception:
+        return None #if there is anything wrong with the given values
+
+median_finder = F.udf(find_median,FloatType())
+
+res = res.groupBy("day","month","year").agg(F.collect_list("tone_mean").alias("tone"))
+
+res = res.withColumn("median_tone",median_finder("tone")) 
+
+res = res.select("day","month","year","median_tone")
+
+res.write.mode('overwrite').parquet(config.OUTPUT_PATH+"tone_mean_count_5themes_median.parquet")
