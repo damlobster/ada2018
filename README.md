@@ -33,19 +33,16 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 
 #  Files in this repo
 
-The [Milestone2.pynb](src/Milestone2.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need.
+The [Milestone3.pynb](src/Milestone3.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need. The [Milestone2.pynb](src/Milestone2.ipynb) contains the explanations for the Milestone 2 (in case the reader wants to retrace our progress).
 
 In case, we provide here an architecture of the repo:
 
 - [src/cluster](src/cluster): all the files used to create the parquets (that are used in all the other folders of src) on the cluster
 
-- [src/tone](src/tone): local computations related to the average tone in the world
+- [src/tone](src/local): each subfolder contains a notebook corresponding to local computations for specific task; we have put together all the computations in the [Milestone3.pynb](src/Milestone3.ipynb)
 
-- [src/actors](src/actors): local computations related to the findings of the major actors in the world
+- [src/data](src/data): data files that have been in the local computations, contains files issued from cluster computations as weel as external datasets and assets files.
 
-- [src/mentions_counts](src/mentions_counts): local computations related to the proportion of mentions related to the environment in the world (time, and by country)
-
-- [src/co-occuring_actors](src/co-occuring_actors): temporay files to this date
 
 # Dataset
 We are going to use the GDELT (Global Database for Events, Languages and Tones) 2.0 dataset from the cluster which contains open data from the world's news media with local events, reactions and emotions of even the most remote corners of the world from 2015 to 2017. It is based on news reports from a variety of international news sources encoded using the Tabari system for events.
@@ -117,3 +114,15 @@ For the social development, we have used the [Human Development Index](http://hd
 
 
 Moreover, we have used the [Environmental performance index](https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. Eventually, we have access to this general index which gives information about the ecological involvement of the country, but also to the used metrics among which is the GDP. We recall that GDP measures the economical status of the country.
+
+# Used Libraries 
+We have used the classical libraries in Python programming: numpy, pandas, pyspark, seaborn, matplotlib.
+
+In addition, we have used the following libraries:
+
+- [Altair](https://altair-viz.github.io/): Table bubble plot
+- [NetworkX](https://networkx.github.io/documentation/stable/): Weighted Graph 
+- [Word Cloud](https://amueller.github.io/word_cloud/): Word Cloud
+
+# Contribution
+The README in milestone 3 shall be updated detailing the contributions of all group members (including who will work on the final presentation).
