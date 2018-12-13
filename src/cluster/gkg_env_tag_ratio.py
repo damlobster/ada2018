@@ -16,7 +16,7 @@ ENV_TAGS = ["ENV_", "SELF_IDENTIFIED_ENVIRON_DISASTER",
 files = "[0-9]*.gkg.csv"
 spark = SparkSession.builder.getOrCreate()
 
-step = "none"
+step = "join"
 if step=="extract":
     gkg_df = spark.read.csv(config.GDELT_PATH + files, sep="\t",
                             header=False, schema=config.GKG_SCHEMA, mode="DROPMALFORMED")
@@ -43,9 +43,11 @@ if step=="extract":
     res.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg_records_env_tags_ratios_trial_heading.parquet")
     res.show(1000)
 elif step == "join":
+    geoloc = "_domain"
     gkg_ids = spark.read.parquet(config.OUTPUT_PATH+"/gkg_records_env_tags_ratios_trial_heading.parquet")
-    gkg = spark.read.parquet(config.OUTPUT_PATH+"/gkg_small.parquet")
+    gkg = spark.read.parquet(config.OUTPUT_PATH+"/gkg"+geoloc+".parquet")
     filtered = gkg.join(gkg_ids, ["GKGRECORDID"])
-    filtered.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg_filtered_5themes.parquet")
+    filtered.write.mode('overwrite').parquet(config.OUTPUT_PATH+"/gkg"+geoloc+"_filtered_5themes.parquet")
+    # filtered.show(1000)
 else:
     pass

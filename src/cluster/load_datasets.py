@@ -9,6 +9,7 @@ import config
 
 def load_gkg(sc, file, small=True):
     """Load the GKG file(s) into a DataFrame.
+    Only the records containing a environment related V1Themes tag are kept.
 
     Arguments:
         sc {SparkContext} -- the spark context to use
