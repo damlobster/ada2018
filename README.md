@@ -123,3 +123,6 @@ In addition, we have used the following libraries:
 - [Altair](https://altair-viz.github.io/): Table bubble plot
 - [NetworkX](https://networkx.github.io/documentation/stable/): Weighted Graph 
 - [Word Cloud](https://amueller.github.io/word_cloud/): Word Cloud
+
+# Contribution
+The README in milestone 3 shall be updated detailing the contributions of all group members (including who will work on the final presentation).
