@@ -1,3 +1,4 @@
+import random
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
@@ -49,8 +50,8 @@ def generate_wordcloud(data, size=75):
     size - number of words in the WordCloud
     """
     data = data.sort_values('Count', ascending=False).head(size)
-    wordcloud = WordCloud(width=1080, height=920, margin=0).generate_from_frequencies(data.to_dict()['Count'])
+    wordcloud = WordCloud(background_color="white", width=1080, height=920, margin=0).generate_from_frequencies(data.to_dict()['Count'])
     plt.figure(figsize=(15, 10))
-    plt.imshow(wordcloud)
+    plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis('off')
     plt.show() 
