@@ -58,6 +58,12 @@ def generate_wordcloud(data, size=75):
     
     
 def wordcloud_persons(DATA_PATH, nb_items, date=None):
+    """ Generate a WordCloud for the persons for the given date
+    
+    Arguments:
+    nb_items - number of words in the WordCloud
+    """
+    
     if date is not None:
         persons = pd.read_csv(DATA_PATH + "persons_final.csv")
         persons = persons[persons.Date == date]
@@ -67,6 +73,12 @@ def wordcloud_persons(DATA_PATH, nb_items, date=None):
     generate_wordcloud(persons,nb_items)
     
 def wordcloud_countries(DATA_PATH, nb_items, date=None):
+    """ Generate a WordCloud for the countries for the given date
+    
+    Arguments:
+    nb_items - number of words in the WordCloud
+    """
+    
     if date is not None:
         locations = pd.read_csv(DATA_PATH + "locations_final.csv")
         locations = locations[locations.Date == date]
@@ -78,6 +90,12 @@ def wordcloud_countries(DATA_PATH, nb_items, date=None):
     generate_wordcloud(locations,nb_items)
     
 def wordcloud_cities(DATA_PATH, nb_items, date=None):
+    """ Generate a WordCloud for the cities for the given date
+    
+    Arguments:
+    nb_items - number of words in the WordCloud
+    """
+    
     if date is not None:
         locations = pd.read_csv(DATA_PATH + "locations_final.csv")
         locations = locations[locations.Date == date]
@@ -90,6 +108,12 @@ def wordcloud_cities(DATA_PATH, nb_items, date=None):
     generate_wordcloud(locations,nb_items)
     
 def wordcloud_organizations(DATA_PATH, nb_items, date=None):
+    """ Generate a WordCloud for the organizations for the given date
+    
+    Arguments:
+    nb_items - number of words in the WordCloud
+    """
+    
     if date is not None:
         organizations = pd.read_csv(DATA_PATH + "organizations_final.csv")
         organizations = organizations[organizations.Date == date]
