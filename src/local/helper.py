@@ -66,7 +66,10 @@ def generate_wordcloud(data, size=75, fig=None, pos=None, title=None):
         plt.show() 
 
 def wordcloud_combined(date):
-    DATA_PATH = "data/local_generated/"
+    if date is None:
+        DATA_PATH = "data/from_cluster/wordcloud_actors/"
+    else:
+        DATA_PATH = "data/local_generated/"
     fig = plt.figure(figsize=(12, 10))
     wordcloud_organizations(DATA_PATH, 20, date, fig, 221)
     wordcloud_persons(DATA_PATH, 20, date, fig, 222)
