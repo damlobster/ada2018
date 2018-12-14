@@ -55,3 +55,45 @@ def generate_wordcloud(data, size=75):
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis('off')
     plt.show() 
+    
+    
+def wordcloud_persons(DATA_PATH, nb_items, date=None):
+    if date is not None:
+        persons = pd.read_csv(DATA_PATH + "persons_final.csv")
+        persons = persons[persons.Date == date]
+    else:
+        persons = pd.read_csv(DATA_PATH + "persons_occurences.csv")
+    persons = persons.set_index("Actor")
+    generate_wordcloud(persons,nb_items)
+    
+def wordcloud_countries(DATA_PATH, nb_items, date=None):
+    if date is not None:
+        locations = pd.read_csv(DATA_PATH + "locations_final.csv")
+        locations = locations[locations.Date == date]
+    else:
+        locations = locations = pd.read_csv(DATA_PATH + "locations_occurences.csv")
+    locations = locations[locations.Actor.str.startswith('1')]
+    locations.Actor = locations.Actor.str.split('#').str[1]
+    locations = locations.groupby('Actor').sum()
+    generate_wordcloud(locations,nb_items)
+    
+def wordcloud_cities(DATA_PATH, nb_items, date=None):
+    if date is not None:
+        locations = pd.read_csv(DATA_PATH + "locations_final.csv")
+        locations = locations[locations.Date == date]
+    else:
+        locations = pd.read_csv(DATA_PATH + "locations_occurences.csv")
+    locations = locations[locations.Actor.str.startswith('3') | locations.Actor.str.startswith('4')]
+    locations.Actor = locations.Actor.str.split('#').str[1]
+    locations.Actor = locations.Actor.str.split(',').str[0]
+    locations = locations.groupby('Actor').sum()
+    generate_wordcloud(locations,nb_items)
+    
+def wordcloud_organizations(DATA_PATH, nb_items, date=None):
+    if date is not None:
+        organizations = pd.read_csv(DATA_PATH + "organizations_final.csv")
+        organizations = organizations[organizations.Date == date]
+    else:
+        organizations = pd.read_csv(DATA_PATH + "organizations_occurences.csv")
+    organizations = organizations.set_index("Actor")
+    generate_wordcloud(organizations,nb_items)
