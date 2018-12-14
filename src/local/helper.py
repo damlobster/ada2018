@@ -42,7 +42,7 @@ def join_countries(table, countries, states=None, with_iso=False):
     return table
 
 
-def generate_wordcloud(data, size=75):
+def generate_wordcloud(data, size=75, fig=None, pos=None):
     """Generate a WordCloud for the items present in data.
     
     Arguments:
@@ -51,13 +51,17 @@ def generate_wordcloud(data, size=75):
     """
     data = data.sort_values('Count', ascending=False).head(size)
     wordcloud = WordCloud(background_color="white", width=1080, height=920, margin=0).generate_from_frequencies(data.to_dict()['Count'])
-    plt.figure(figsize=(15, 10))
+    if fig is None:
+        plt.figure(figsize=(15, 10))
+    else:
+        fig.add_subplot(pos)
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis('off')
-    plt.show() 
+    if fig is None:
+        plt.show() 
     
     
-def wordcloud_persons(DATA_PATH, nb_items, date=None):
+def wordcloud_persons(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the persons for the given date
     
     Arguments:
@@ -70,9 +74,9 @@ def wordcloud_persons(DATA_PATH, nb_items, date=None):
     else:
         persons = pd.read_csv(DATA_PATH + "persons_occurences.csv")
     persons = persons.set_index("Actor")
-    generate_wordcloud(persons,nb_items)
+    generate_wordcloud(persons, nb_items, fig, pos)
     
-def wordcloud_countries(DATA_PATH, nb_items, date=None):
+def wordcloud_countries(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the countries for the given date
     
     Arguments:
@@ -87,9 +91,9 @@ def wordcloud_countries(DATA_PATH, nb_items, date=None):
     locations = locations[locations.Actor.str.startswith('1')]
     locations.Actor = locations.Actor.str.split('#').str[1]
     locations = locations.groupby('Actor').sum()
-    generate_wordcloud(locations,nb_items)
+    generate_wordcloud(locations,nb_items, fig, pos)
     
-def wordcloud_cities(DATA_PATH, nb_items, date=None):
+def wordcloud_cities(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the cities for the given date
     
     Arguments:
@@ -105,9 +109,9 @@ def wordcloud_cities(DATA_PATH, nb_items, date=None):
     locations.Actor = locations.Actor.str.split('#').str[1]
     locations.Actor = locations.Actor.str.split(',').str[0]
     locations = locations.groupby('Actor').sum()
-    generate_wordcloud(locations,nb_items)
+    generate_wordcloud(locations,nb_items, fig, pos)
     
-def wordcloud_organizations(DATA_PATH, nb_items, date=None):
+def wordcloud_organizations(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the organizations for the given date
     
     Arguments:
@@ -120,4 +124,4 @@ def wordcloud_organizations(DATA_PATH, nb_items, date=None):
     else:
         organizations = pd.read_csv(DATA_PATH + "organizations_occurences.csv")
     organizations = organizations.set_index("Actor")
-    generate_wordcloud(organizations,nb_items)
+    generate_wordcloud(organizations,nb_items, fig, pos)
