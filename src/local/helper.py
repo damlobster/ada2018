@@ -2,6 +2,9 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+from sklearn.feature_extraction.text import CountVectorizer
+import networkx as nx
+from collections import Counter
 
 def load_countries(DATA_PATH):
     # Load the list of the countries in the world 
@@ -130,8 +133,8 @@ def plot_occ_graph(DATA_PATH, file, min_actor_rank, edge_size, node_weight_exp, 
     df = pd.read_csv(DATA_PATH + '/local_generated/' + file)
     
     # Read occurence data
-    per_occ = pd.read_csv(DATA_PATH + '/from_cluster/wordcloud_actors/persons_occurences.csv', nrows=min_actor_rank)
-    org_occ = pd.read_csv(DATA_PATH + '/from_cluster/wordcloud_actors/organizations_occurences.csv', nrows=min_actor_rank)
+    per_occ = pd.read_csv(DATA_PATH + '/from_cluster/worldcloud_actors/persons_occurences.csv', nrows=min_actor_rank)
+    org_occ = pd.read_csv(DATA_PATH + '/from_cluster/worldcloud_actors/organizations_occurences.csv', nrows=min_actor_rank)
     
     # Create a dictionnary that maps an actor to its occurence
     per_occ['Actor'] = per_occ['Actor'].apply(lambda x: x.replace(" ", "_"))
