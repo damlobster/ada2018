@@ -45,7 +45,7 @@ def join_countries(table, countries, states=None, with_iso=False):
     return table
 
 
-def generate_wordcloud(data, size=75, fig=None, pos=None):
+def generate_wordcloud(data, size=75, fig=None, pos=None, title=None):
     """Generate a WordCloud for the items present in data.
     
     Arguments:
@@ -56,13 +56,22 @@ def generate_wordcloud(data, size=75, fig=None, pos=None):
     wordcloud = WordCloud(background_color="white", width=1080, height=920, margin=0).generate_from_frequencies(data.to_dict()['Count'])
     if fig is None:
         plt.figure(figsize=(15, 10))
+        plt.suptitle(title)
     else:
-        fig.add_subplot(pos)
+        ax = fig.add_subplot(pos)
+        ax.title.set_text(title)
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis('off')
     if fig is None:
         plt.show() 
-    
+
+def wordcloud_combined(date):
+    DATA_PATH = "data/local_generated/"
+    fig = plt.figure(figsize=(12, 10))
+    wordcloud_organizations(DATA_PATH, 20, date, fig, 221)
+    wordcloud_persons(DATA_PATH, 20, date, fig, 222)
+    wordcloud_countries(DATA_PATH, 20, date, fig, 223)
+    wordcloud_cities(DATA_PATH, 20, date, fig, 224)   
     
 def wordcloud_persons(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the persons for the given date
@@ -77,7 +86,7 @@ def wordcloud_persons(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     else:
         persons = pd.read_csv(DATA_PATH + "persons_occurences.csv")
     persons = persons.set_index("Actor")
-    generate_wordcloud(persons, nb_items, fig, pos)
+    generate_wordcloud(persons, nb_items, fig, pos, "Persons")
     
 def wordcloud_countries(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the countries for the given date
@@ -94,7 +103,7 @@ def wordcloud_countries(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     locations = locations[locations.Actor.str.startswith('1')]
     locations.Actor = locations.Actor.str.split('#').str[1]
     locations = locations.groupby('Actor').sum()
-    generate_wordcloud(locations,nb_items, fig, pos)
+    generate_wordcloud(locations,nb_items, fig, pos, "Countries")
     
 def wordcloud_cities(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the cities for the given date
@@ -112,7 +121,7 @@ def wordcloud_cities(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     locations.Actor = locations.Actor.str.split('#').str[1]
     locations.Actor = locations.Actor.str.split(',').str[0]
     locations = locations.groupby('Actor').sum()
-    generate_wordcloud(locations,nb_items, fig, pos)
+    generate_wordcloud(locations,nb_items, fig, pos, "Cities")
     
 def wordcloud_organizations(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     """ Generate a WordCloud for the organizations for the given date
@@ -127,7 +136,7 @@ def wordcloud_organizations(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     else:
         organizations = pd.read_csv(DATA_PATH + "organizations_occurences.csv")
     organizations = organizations.set_index("Actor")
-    generate_wordcloud(organizations,nb_items, fig, pos)
+    generate_wordcloud(organizations,nb_items, fig, pos, "Organizations")
 
 def plot_occ_graph(DATA_PATH, file, min_actor_rank, edge_size, node_weight_exp, spacing, figsize):
 	""" Generate a co-occurence graph of the top organizations and persons

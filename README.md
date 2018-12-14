@@ -116,7 +116,7 @@ For the social development, we have used the [Human Development Index](http://hd
 Moreover, we have used the [Environmental performance index](https://epi.envirocenter.yale.edu/epi-downloads). This index ranks 180 countries on many performance indicators particularly covering environmental health. The used metrics provide a gauge at a national scale of how close countries are to achieved environmental policy goals. Eventually, we have access to this general index which gives information about the ecological involvement of the country, but also to the used metrics among which is the GDP. We recall that GDP measures the economical status of the country.
 
 # Used Libraries 
-We have used the classical libraries in Python programming: numpy, pandas, pyspark, seaborn, matplotlib.
+We have used the classical libraries in Python programming: numpy, pandas, pyspark, seaborn, matplotlib, scikit.
 
 In addition, we have used the following libraries:
 
@@ -124,5 +124,13 @@ In addition, we have used the following libraries:
 - [NetworkX](https://networkx.github.io/documentation/stable/): Weighted Graph 
 - [Word Cloud](https://amueller.github.io/word_cloud/): Word Cloud
 
+
 # Contribution
-The README in milestone 3 shall be updated detailing the contributions of all group members (including who will work on the final presentation).
+
+All: dataset exploration, dataset crawling, preliminary dataset analysis, problem formulation, research question definition, writing up the report, code factorization.
+
+- Damien Martin: Plotting graphs during data analysis, first dataset computation on the cluster finding external dataset analysis of the ratio of mentions, correlation with epi and hdi ; temporal and spatial approach
+- Karthigan Sinnathamby: Timeline (table bubble plot) generation, analysis of the tone, temporal and spatial approach
+- Mathieu Ducroux: wordcloud generation, weighted graph generation ; major actors approach
+
+We will all work on the final presentation: the poster will be created on Indesign or Illustrator.
