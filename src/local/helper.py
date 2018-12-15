@@ -53,7 +53,7 @@ def generate_wordcloud(data, size=75, fig=None, pos=None, title=None):
     size - number of words in the WordCloud
     """
     data = data.sort_values('Count', ascending=False).head(size)
-    wordcloud = WordCloud(background_color="white", width=1080, height=920, margin=0).generate_from_frequencies(data.to_dict()['Count'])
+    wordcloud = WordCloud(background_color="white", width=540, height=768, margin=0).generate_from_frequencies(data.to_dict()['Count'])
     if fig is None:
         plt.figure(figsize=(15, 10))
         plt.suptitle(title)
