@@ -131,6 +131,9 @@ def wordcloud_organizations(DATA_PATH, nb_items, date=None, fig=None, pos=None):
     
     Arguments:
     nb_items - number of words in the WordCloud
+
+    Returns:
+    G - the graph object
     """
     
     if date is not None:
@@ -156,8 +159,8 @@ def plot_occ_graph(DATA_PATH, file, min_actor_rank, edge_size, node_weight_exp, 
 	df = pd.read_csv(DATA_PATH + '/local_generated/' + file)
 
 	# Read occurence data
-	per_occ = pd.read_csv(DATA_PATH + '/from_cluster/worldcloud_actors/persons_occurences.csv', nrows=min_actor_rank)
-	org_occ = pd.read_csv(DATA_PATH + '/from_cluster/worldcloud_actors/organizations_occurences.csv', nrows=min_actor_rank)
+	per_occ = pd.read_csv(DATA_PATH + '/from_cluster/wordcloud_actors/persons_occurences.csv', nrows=min_actor_rank)
+	org_occ = pd.read_csv(DATA_PATH + '/from_cluster/wordcloud_actors/organizations_occurences.csv', nrows=min_actor_rank)
 
 	# Create a dictionnary that maps an actor to its occurence
 	per_occ['Actor'] = per_occ['Actor'].apply(lambda x: x.replace(" ", "_"))
@@ -201,8 +204,11 @@ def plot_occ_graph(DATA_PATH, file, min_actor_rank, edge_size, node_weight_exp, 
 	node_col = ['#ff8d00' if x in top_organizations else '#00c900' for x in vertices]
 	node_sizes = [actor_occ_dict.get(x)**node_weight_exp for x in vertices]
 	pos = nx.spring_layout(G, k=spacing/(G.order()**0.5))
+
 	nx.draw(G, pos, with_labels=True, font_size = 12, font_weight = 'bold',
 	        width=[G[u][v]['weight'] for u,v in G.edges()], node_size=node_sizes, font_color='k', node_color=node_col)
 	plt.axis('off')
 	plt.show()
+
+	return G
 
