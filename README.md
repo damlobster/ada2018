@@ -1,4 +1,4 @@
-[Updated 25.11.2018]
+[Updated 16.12.2018]
 
 # **Environment news in the world**
 
