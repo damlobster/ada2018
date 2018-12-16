@@ -3,7 +3,7 @@
 # **Environment news in the world**
 
 # Abstract
-Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media plays an important role in reporting environmental news to population, whether it is for reporting natural disasters that cause important damage to population and environment, or for exposing the suspicious practice of a company, political actions dealing with environment etc...
+Concerns about environmental degradation is taking a growing place in the collective consciousness. Global media plays an important role in reporting environmental news to population, whether it is for reporting natural disasters that cause important damage to population and environment, or for exposing the suspicious practices of a company, political actions dealing with environment etc...
 
 We would like to analyse the environment news coverage in the world. First, we would like to see what are the main reported actors implied in environment-related event and how they are connected to each other. Then, we would like to see what is the distribution and the tone of environmental news from a temporal and spatial view. Also it could be interesting to see what are the major events that took place recently and focus on one of these major events.
 
@@ -41,7 +41,7 @@ In case, we provide here an architecture of the repo:
 
 - [src/tone](src/local): each subfolder contains a notebook corresponding to local computations for specific task; we have put together all the computations in the [Milestone3.pynb](src/Milestone3.ipynb)
 
-- [src/data](src/data): data files that have been in the local computations, contains files issued from cluster computations as weel as external datasets and assets files.
+- [src/data](src/data): data files that have been generated from local computations, files issued from cluster computations as well as external datasets and assets files.
 
 
 # Dataset
@@ -128,10 +128,9 @@ In addition, we have used the following libraries:
 
 # Contribution
 
-All: dataset exploration, dataset crawling, preliminary dataset analysis, problem formulation, research question definition, writing up the report, code factorization.
-
-- Damien Martin: Plotting graphs during data analysis, first dataset computation on the cluster finding external dataset analysis of the ratio of mentions, correlation with epi and hdi ; temporal and spatial approach
-- Karthigan Sinnathamby: Timeline (table bubble plot) generation, analysis of the tone, temporal and spatial approach
-- Mathieu Ducroux: wordcloud generation, weighted graph generation ; major actors approach
+- Everyone: dataset exploration, dataset crawling, preliminary dataset analysis, problem formulation, research question definition, writing up the report, code factorization.
+- Damien Martin: Plotting graphs during data analysis, first dataset computation on the cluster, finding external dataset, analysis of the ratio of mentions, correlation with epi and hdi ; temporal and spatial approach
+- Karthigan Sinnathamby: Timeline (table bubble plot) generation, analysis of the tone ; temporal and spatial approach
+- Mathieu Ducroux: wordcloud generation, co-occurence network generation ; major actors approach
 
 We will all work on the final presentation: the poster will be created on Indesign or Illustrator.
