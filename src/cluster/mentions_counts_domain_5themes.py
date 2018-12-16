@@ -64,8 +64,11 @@ env_df = spark.sql(qry)
 joined = global_df.join(
     env_df, ["STATE", "DOMAIN_COUNTRY", "YEAR", "MONTH", "DAY"], "left_outer")
 joined.printSchema()
+joined.describe().show()
 print("Results joined")
 
 joined.repartition(1).write.mode('overwrite').csv(
     "data/mentions_counts_by_domain_state_and_days_filtered_5themes.csv", header=True, sep=',')
 print("Finished")
+
+joined.show(10000)

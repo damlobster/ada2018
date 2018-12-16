@@ -11,6 +11,9 @@ from pyspark.sql.types import *
 
 import config
 
+from load_datasets import load_events, load_mentions
+
+
 spark = SparkSession.builder.getOrCreate()
 
 # Read the parquet of mentions and select the identifier and time
