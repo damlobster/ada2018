@@ -1,5 +1,8 @@
+"""
+This script contain methods used in others scripts when we need to load the raw GDELT files.
+"""
+
 import pyspark
-import datetime
 from pyspark.sql import *
 import pyspark.sql.functions as F
 from pyspark.sql.types import *

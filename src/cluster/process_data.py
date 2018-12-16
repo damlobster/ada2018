@@ -1,11 +1,9 @@
 """
-This code loads all the files of the dataset with the functions of load_dataset.py and write a single parquet for gkg, mention (joined on gkg) and event (joined on mention)
+This code loads all the files of the dataset with the functions of load_dataset.py and write a single parquet for gkg, 
+mention (joined on gkg) and event (joined on mention). 
+Thoses parquets contains only the records related to the environment (see config.py for the list of environmental themes)
 """
-
-import sys
-import os
 import pyspark
-import datetime
 from pyspark.sql import *
 import pyspark.sql.functions as F
 from pyspark.sql.types import *
@@ -24,8 +22,8 @@ if step == "GKG":
     else:
         gkg_df = load_gkg(spark, "[0-9]*.gkg.csv", small=True)
         geoloc_df = spark.read.csv(config.OUTPUT_PATH + "GDELT_DOMAINS_BY_COUNTRY.TXT", sep="\t",
-                         header=True, mode="DROPMALFORMED")
-        gkg_df = gkg_df.alias("a").join(geoloc_df.alias("b"), F.col("a.V2SourceCommonName")==F.col("b.DOMAIN"), how="left")\
+                                   header=True, mode="DROPMALFORMED")
+        gkg_df = gkg_df.alias("a").join(geoloc_df.alias("b"), F.col("a.V2SourceCommonName") == F.col("b.DOMAIN"), how="left")\
             .selectExpr("a.*", "b.FIPS as DOMAIN_FIPS", "b.COUNTRY as DOMAIN_COUNTRY")
     gkg_df.write.mode('overwrite').parquet(
         config.OUTPUT_PATH+"/gkg_domain.parquet")
