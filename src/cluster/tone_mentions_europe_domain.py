@@ -11,10 +11,19 @@ from pyspark.sql.types import *
 
 import config
 
+from load_datasets import load_events, load_mentions
+
+
 spark = SparkSession.builder.getOrCreate()
 
-# Read the parquet of mentions and select the identifier and time
-mentions_df = spark.read.parquet(config.OUTPUT_PATH+"/mentions_domain.parquet").select("MentionIdentifier","MentionTimeDate")
+# Read the mentions and select the identifier and time
+mentions_df = load_mentions(spark, "[0-9]*.mentions.CSV")
+print("Mentions loaded")
+
+mentions_df = mentions_df.select("MentionIdentifier","MentionTimeDate")
+mentions_df.printSchema()
+
+#mentions_df = spark.read.parquet(config.OUTPUT_PATH+"/mentions_domain.parquet")
 # Read the parquet of gkg and select the document identifier and tone
 gkg_df = spark.read.parquet(config.OUTPUT_PATH+"/gkg_domain_filtered_5themes.parquet").selectExpr("V2DocumentIdentifier","V1Tone", "DOMAIN_FIPS AS STATE")
 # Take only the average tone of the document

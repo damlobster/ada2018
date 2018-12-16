@@ -42,12 +42,15 @@ def get_global():
         [DataFrame] -- a dataframe with columns: [STATE, YEAR, MONTH, DAY, GLOBAL_COUNT]
     """
     qry2 = "\
-    SELECT STATE, DOMAIN_COUNTRY, \
-        YEAR(m.MentionTimeDate) AS YEAR, MONTH(m.MentionTimeDate) AS MONTH, DAY(m.MentionTimeDate) AS DAY, \
-        COUNT(m.MentionIdentifier) AS GLOBAL_COUNT \
-    FROM mentions_global AS m \
-    GROUP BY STATE, DOMAIN_COUNTRY, MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate)"
+    SELECT STATE, \
+        YEAR(MentionTimeDate) AS YEAR, MONTH(MentionTimeDate) AS MONTH, DAY(MentionTimeDate) AS DAY, \
+        COUNT(MentionIdentifier) AS GLOBAL_COUNT \
+    FROM mentions_global \
+    GROUP BY STATE, MONTH(MentionTimeDate), YEAR(MentionTimeDate), DAY(MentionTimeDate)"
     df = spark.sql(qry2)
+    print("Global -----")
+    df.printSchema()
+    df.describe().show()
     return df
 
 
@@ -59,21 +62,27 @@ def get_env():
     """
 
     qry2 = "\
-    SELECT m.STATE, m.DOMAIN_COUNTRY, \
+    SELECT m.STATE, \
         YEAR(m.MentionTimeDate) AS YEAR, MONTH(m.MentionTimeDate) AS MONTH, DAY(m.MentionTimeDate) AS DAY, \
         COUNT(m.MentionIdentifier) as ENV_COUNT \
     FROM mentions_global m, (SELECT DISTINCT V2DocumentIdentifier FROM gkg) g \
     WHERE m.MentionIdentifier=g.V2DocumentIdentifier \
-    GROUP BY MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate), m.STATE, m.DOMAIN_COUNTRY"
+    GROUP BY m.STATE, MONTH(m.MentionTimeDate), YEAR(m.MentionTimeDate), DAY(m.MentionTimeDate)"
     df = spark.sql(qry2)
+    print("Env -----")
+    df.printSchema()
+    df.describe().show()
     return df
 
 
 # Get the counts and join them to be able afterward to compute the ratio
-joined = get_global().join(get_env(), ["STATE", "DOMAIN_COUNTRY", "YEAR", "MONTH", "DAY"], "left_outer")
+joined = get_global().join(get_env(), ["STATE", "YEAR", "MONTH", "DAY"], "left_outer")
 joined.printSchema()
+joined.describe().show()
 print("Results joined")
 
 joined.repartition(1).write.mode('overwrite').csv(
     "data/mentions_counts_by_domain_state_and_days_filtered_5themes.csv", header=True, sep=',')
 print("Finished")
+
+joined.show(10000)
