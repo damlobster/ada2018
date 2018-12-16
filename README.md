@@ -33,7 +33,7 @@ For this analysis, we are going to use the GDELT v2.0 dataset which contains inf
 
 #  Files in this repo
 
-The [Milestone3.pynb](src/Milestone3.ipynb) explains in detail the pipeline adopted in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need. The [Milestone2.pynb](src/Milestone2.ipynb) contains the explanations for the Milestone 2 (in case the reader wants to retrace our progress).
+The [Milestone3.pynb](src/Milestone3.ipynb) explains in detail the pipeline adopted and the results obtained in this project. We strongly invite the reader to look at this notebook which aggregates all the information he/she will need. The [Milestone2.pynb](src/archive/Milestone2.ipynb) contains the explanations for the Milestone 2 (in case the reader wants to retrace our progress).
 
 In case, we provide here an architecture of the repo:
 
