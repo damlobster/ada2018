@@ -7,6 +7,7 @@ from pyspark.sql.types import *
 
 import config
 
+
 spark = SparkSession.builder.getOrCreate()
 
 # we load the parquets and keep only the required columns

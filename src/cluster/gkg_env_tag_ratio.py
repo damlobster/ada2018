@@ -2,15 +2,9 @@
 This script filter the GKG records to extract only the ones related to environmental events.
 We do this by considering that a record is environment related if the V1Themes column contain a environmental theme in the first five themes
 """
-
-import sys
-import os
-import json
-
 import config
 
 import pyspark
-import datetime
 from pyspark.sql import *
 import pyspark.sql.functions as F
 from pyspark.sql.types import *

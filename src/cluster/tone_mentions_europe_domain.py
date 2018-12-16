@@ -1,8 +1,4 @@
 # This code extract the average tone of news related to environment per day and country (geolocalized with the web domain location)
-
-import sys
-import os
-import json
 import pyspark
 import datetime
 from pyspark.sql import *
@@ -10,8 +6,6 @@ import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
 import config
-
-from load_datasets import load_events, load_mentions
 
 
 spark = SparkSession.builder.getOrCreate()

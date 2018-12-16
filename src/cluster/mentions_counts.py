@@ -3,17 +3,10 @@ This script compute the ratio of environmental related mentions over all mention
 We use here the location of the two actors to geolocalize the mentions.
 It is computed for each countries and each days.
 """
-
-import sys
-import os
-import json
-
 import config
 
 import pyspark
-import datetime
 from pyspark.sql import *
-import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
 from load_datasets import load_events, load_mentions

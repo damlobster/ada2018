@@ -3,11 +3,7 @@ This code loads all the files of the dataset with the functions of load_dataset.
 mention (joined on gkg) and event (joined on mention). 
 Thoses parquets contains only the records related to the environment (see config.py for the list of environmental themes)
 """
-
-import sys
-import os
 import pyspark
-import datetime
 from pyspark.sql import *
 import pyspark.sql.functions as F
 from pyspark.sql.types import *

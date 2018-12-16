@@ -7,12 +7,10 @@ It is computed for each countries and each days.
 import config
 
 import pyspark
-import datetime
 from pyspark.sql import *
-import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
-from load_datasets import load_events, load_mentions
+from load_datasets import load_mentions
 
 spark = SparkSession.builder.getOrCreate()
 print("Spark session created")
