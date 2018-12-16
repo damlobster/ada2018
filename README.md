@@ -123,6 +123,7 @@ In addition, we have used the following libraries:
 - [Altair](https://altair-viz.github.io/): Table bubble plot
 - [NetworkX](https://networkx.github.io/documentation/stable/): Weighted Graph 
 - [Word Cloud](https://amueller.github.io/word_cloud/): Word Cloud
+- [Python Louvain](https://github.com/taynaud/python-louvain): Louvain Community Detection
 
 
 # Contribution
